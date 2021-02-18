@@ -1,0 +1,72 @@
+\documentclass[8pt, letterpaper]{report}
+
+% used for change the geometry/layout of the document
+\usepackage{geometry}
+\geometry{top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}
+
+% used for colored box
+\usepackage{tcolorbox}
+
+% used for import images
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+
+% used for import hyperlinks
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+    colorlinks=false, %set true if you want colored links
+    linktoc=all,     %set to all if you want both sections and subsections linked
+    linkcolor=blue,  %choose some color if you want links to stand out
+}
+
+% used for import font colors
+\usepackage{xcolor}
+
+% used to read the file name
+\usepackage{currfile}
+
+
+
+
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\pagestyle{fancy} 
+
+
+\fancyhead{} % remove the header shitty line
+
+
+%\chead{\begin{picture}(0,0) \put(0,0){\includegraphics[width=2cm]{Logo}} \end{picture}}
+% \chead{\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Logo}}
+\cfoot{\thepage\ of \pageref{LastPage}}
+\lfoot{\today\newline\currfilename}
+\rfoot{LIEBHERR MACHINE BULLE}
+
+
+\renewcommand{\headrulewidth}{2pt}% Default \headrulewidth is 0.4pt
+
+% Redefine the plain page style
+\fancypagestyle{plain}{}
+
+
+\begin{document}
+
+\author{AC22}
+
+
+
+
+\title{{\vspace{-10.0cm}{\textsc{Manual}\\Result Viewer}}}
+\maketitle
+\tableofcontents
+\clearpage
+
+
+\input{chapters/ReadFile}
+\input{chapters/ViewFile}
+\input{chapters/Filtering}
+\input{chapters/SaveFile}
+\input{chapters/GenerateReport}
+
+
+\end{document}
