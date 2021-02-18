@@ -1,5 +1,5 @@
 build
 .idea
-.pyw
-.pyc
-.log
+*.pyw
+*.pyc
+*.log
