@@ -1734,7 +1734,7 @@ class Application(wx.Frame):
     def ReadDataandUpdatelist(self):
         progress_dlg = wx.ProgressDialog("Read data", "Reading data from folder.")
         progress_dlg.Pulse()
-        self.dictionary_of_results = self.get_result_files(self.retrieve_data_from_folder.GetTextCtrlValue(), self.no_of_files.GetValue())
+        self.dictionary_of_results = self.get_result_files(self.retrieve_data_from_folder.GetPath(), self.no_of_files.GetValue())
         # print self.retrieve_data_from_folder.GetTextCtrlValue()
         self.update_list()
         progress_dlg.Destroy()
