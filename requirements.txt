@@ -1,4 +1,5 @@
-numpy==1.16.4
+numpy
 wxPython
 openpyxl
 scandir
+ConfigParser
