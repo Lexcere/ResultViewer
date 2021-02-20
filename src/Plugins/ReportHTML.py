@@ -1,5 +1,5 @@
 import tempfile
-import ConfigParser
+import configparser
 import os
 import random
 import string
@@ -14,7 +14,7 @@ class ReportHTML():
     def __init__(self,saveDirectory, files=None):
         # check the directory exist
         if not os.path.isdir(saveDirectory):
-            print "Folder choosen does not exist"
+            print("Folder choosen does not exist")
             return -1
 
         self.files= files

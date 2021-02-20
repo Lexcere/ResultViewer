@@ -1,9 +1,10 @@
 import os
 import wx
+import wx.adv
 from wx.lib.itemspicker import ItemsPicker,EVT_IP_SELECTION_CHANGED, IP_SORT_CHOICES
 from wx.lib.itemspicker import IP_SORT_SELECTED,IP_REMOVE_FROM_CHOICES
 import traceback
-import ConfigParser
+import configparser as ConfigParser  # keep compytibility with python 2.7
 import glob
 import re
 import shutil
@@ -19,18 +20,17 @@ from openpyxl import Workbook
 from openpyxl.styles import PatternFill, Border, Side, Alignment, Protection, Font
 from openpyxl.worksheet.properties import WorksheetProperties, PageSetupProperties
 import getpass
-import ConfigParser
 import collections
 import logging
-from Lib.SVN import SVN
 from Plugins import ReportHTML
 import scandir
 
+
 # Create the log file for the application
 log_file_name = datetime.datetime.now().strftime('%Y-%m-%d %H-%M-%S') + ".log"
-logging.basicConfig(filename='.data/Log/' + log_file_name , filemode='w', level=logging.DEBUG, format='%(asctime)s\t%(levelname)s\t\t%(message)s')
-logging.debug("====================")
-logging.debug("Starting application")
+# logging.basicConfig(filename='.data/Log/' + log_file_name, filemode='w', level=logging.DEBUG, format='%(asctime)s\t%(levelname)s\t\t%(message)s')
+# logging.debug("====================")
+# logging.debug("Starting application")
 
 class Setting():
     def __init__(self, path):
@@ -133,7 +133,7 @@ class TestResultParser():
             self.dizionario[i]["GENERIC"]["path"] = f
         except:
             self.errors.append(f)
-            print "ERROR: error raised with TC: " + f
+            print("ERROR: error raised with TC: " + f)
 
     def get_dictionary(self):
         return self.dizionario, self.errors
@@ -148,10 +148,10 @@ class Report:
         :param files:
         :return: 0= no problem, 1=missing info, 2=manual test detected, 3=missing info + manual test detected
         """
-        print "=== Overview report started ==="
+        print("=== Overview report started ===")
         # check the directory exist
         if not os.path.isdir(reportDirectory):
-            print "Folder choosen does not exist"
+            print("Folder choosen does not exist")
             return -1
 
         # Initialization
@@ -285,7 +285,7 @@ class Report:
                     if tc[1] == "plus 1":
                         value_to_write = 1
                     elif tc[1] == "svn link":
-                        value_to_write = SVN.GetURL(report)
+                        value_to_write = "ver" # SVN.GetURL(report)
                     else:
                         value_to_write = Config.get(section=tc[0], option=tc[1])
 
@@ -325,9 +325,9 @@ class Report:
                     localCell.value = value_to_write
                 except:
                     localCell.value = "NA"
-                    print "______________________________"
-                    print "Error with TC: " + report
-                    print traceback.format_exc(0)
+                    print("______________________________")
+                    print("Error with TC: " + report)
+                    print(traceback.format_exc(0))
 
                 Column += 1
 
@@ -865,7 +865,7 @@ class Application(wx.Frame):
         wx.Frame.__init__(self, parent, title=title)  # , size=(200, 100))
 
         bitmap = wx.Bitmap('.data/SplashScreenLogo.png')
-        splash = wx.SplashScreen(bitmap, wx.SPLASH_CENTER_ON_SCREEN | wx.SPLASH_TIMEOUT, 1000, self)
+        splash = wx.adv.SplashScreen(bitmap, wx.adv.SPLASH_CENTER_ON_SCREEN | wx.adv.SPLASH_TIMEOUT, 1000, self)
         splash.Show()
 
         self.DrawGUI()
@@ -964,7 +964,7 @@ class Application(wx.Frame):
         self.statusbar = self.CreateStatusBar(4)  # A Statusbar with 3 columns in the bottom of the window
         self.statusbar.SetStatusWidths([-1, -1, -6, -1])
         self.statusbar.SetStatusText("0 Item/s")
-        self.statusbar.SetStatusText("v. " + SVN.GetVersion(file_path=__file__), 3)
+        # self.statusbar.SetStatusText("v. " + SVN.GetVersion(file_path=__file__), 3)
 
         self.ToggleVisibilityPanel()
 
@@ -981,14 +981,14 @@ class Application(wx.Frame):
 
         # populate menu/s
         read_data = wx.MenuItem(fileMenu, wx.ID_ANY, "Read...", "")
-        img = wx.Image(r"C:\CAD\Workspace\HILSimulator\HIL_Tools\Images\16px\binoculars.png", wx.BITMAP_TYPE_ANY)
+        img = wx.Image(r"Images\16px\binoculars.png", wx.BITMAP_TYPE_ANY)
         read_data.SetBitmap(wx.BitmapFromImage(img))
         self.recursive = wx.MenuItem(fileMenu, wx.ID_ANY, "Recursive", kind=wx.ITEM_CHECK)
         reset_folder = wx.MenuItem(fileMenu, wx.ID_ANY, "Reset folder", "")
-        img = wx.Image(r"C:\CAD\Workspace\HILSimulator\HIL_Tools\Images\16px\folder2.png", wx.BITMAP_TYPE_ANY)
+        img = wx.Image(r"Images\16px\folder2.png", wx.BITMAP_TYPE_ANY)
         reset_folder.SetBitmap(wx.BitmapFromImage(img))
         save_data = wx.MenuItem(fileMenu, wx.ID_ANY, "Save...", "")
-        img = wx.Image(r"C:\CAD\Workspace\HILSimulator\HIL_Tools\Images\16px\Save2.png", wx.BITMAP_TYPE_ANY)
+        img = wx.Image(r"Images\16px\Save2.png", wx.BITMAP_TYPE_ANY)
         save_data.SetBitmap(wx.BitmapFromImage(img))
         reset_all_filters = wx.MenuItem(fileMenu, wx.ID_ANY, "Reset all", "Reset filters")
         self.case_sensitive_check = wx.MenuItem(filtersMenu, wx.ID_ANY, "Case sensitive", kind=wx.ITEM_CHECK)
@@ -1000,19 +1000,19 @@ class Application(wx.Frame):
         html_submenu = wx.Menu()
         excel_submenu = wx.Menu()
         html_report_info = wx.MenuItem(fileMenu, wx.ID_ANY, "Info", "")
-        img = wx.Image(r"C:\CAD\Workspace\HILSimulator\HIL_Tools\Images\16px\Create.png", wx.BITMAP_TYPE_ANY)
+        img = wx.Image(r"Images\16px\Create.png", wx.BITMAP_TYPE_ANY)
         html_report_info.SetBitmap(wx.BitmapFromImage(img))
         html_report_other_restriction = wx.MenuItem(fileMenu, wx.ID_ANY, "Other restriction", "")
-        img = wx.Image(r"C:\CAD\Workspace\HILSimulator\HIL_Tools\Images\16px\Create.png", wx.BITMAP_TYPE_ANY)
+        img = wx.Image(r"Images\16px\Create.png", wx.BITMAP_TYPE_ANY)
         html_report_other_restriction.SetBitmap(wx.BitmapFromImage(img))
         new_deviation = wx.MenuItem(fileMenu, wx.ID_ANY, "Deviation", "")
-        img = wx.Image(r"C:\CAD\Workspace\HILSimulator\HIL_Tools\Images\16px\Create.png", wx.BITMAP_TYPE_ANY)
+        img = wx.Image(r"Images\16px\Create.png", wx.BITMAP_TYPE_ANY)
         new_deviation.SetBitmap(wx.BitmapFromImage(img))
         generate_report_html = wx.MenuItem(fileMenu, wx.ID_ANY, "Generate", "")
-        img = wx.Image(r"C:\CAD\Workspace\HILSimulator\HIL_Tools\Images\16px\technical-support.png", wx.BITMAP_TYPE_ANY)
+        img = wx.Image(r"Images\16px\technical-support.png", wx.BITMAP_TYPE_ANY)
         generate_report_html.SetBitmap(wx.BitmapFromImage(img))
         generate_report = wx.MenuItem(fileMenu, wx.ID_ANY, "Generate", "")
-        img = wx.Image(r"C:\CAD\Workspace\HILSimulator\HIL_Tools\Images\16px\technical-support.png", wx.BITMAP_TYPE_ANY)
+        img = wx.Image(r"Images\16px\technical-support.png", wx.BITMAP_TYPE_ANY)
         generate_report.SetBitmap(wx.BitmapFromImage(img))
         self.selected_reports = {}
         self.selected_reports["overview"] = wx.MenuItem(reportMenu, wx.ID_ANY, "Overview", kind=wx.ITEM_CHECK)
@@ -1020,7 +1020,7 @@ class Application(wx.Frame):
         self.selected_reports["incident"] = wx.MenuItem(reportMenu, wx.ID_ANY, "Incident Matrix", kind=wx.ITEM_CHECK)
         self.selected_reports["details"] = wx.MenuItem(reportMenu, wx.ID_ANY, "Details", kind=wx.ITEM_CHECK)
         open_summary = wx.MenuItem(fileMenu, wx.ID_ANY, "Open Summary", "")
-        img = wx.Image(r"C:\CAD\Workspace\HILSimulator\HIL_Tools\Images\16px\Chart.png", wx.BITMAP_TYPE_ANY)
+        img = wx.Image(r"Images\16px\Chart.png", wx.BITMAP_TYPE_ANY)
         open_summary.SetBitmap(wx.BitmapFromImage(img))
         self.metric_panel_visibility = wx.MenuItem(windowsMenu, wx.ID_ANY, "Show metric", kind=wx.ITEM_CHECK)
         self.message_panel_visibility = wx.MenuItem(windowsMenu, wx.ID_ANY, "Show messages", kind=wx.ITEM_CHECK)
@@ -1113,28 +1113,28 @@ class Application(wx.Frame):
 
         sizer = wx.GridBagSizer()
 
-        bmp = wx.Bitmap(r"C:\CAD\Workspace\HILSimulator\HIL_Tools\Images\32px\binoculars.png", wx.BITMAP_TYPE_PNG)
+        bmp = wx.Bitmap(r"Images\32px\binoculars.png", wx.BITMAP_TYPE_PNG)
         Retreive = wx.BitmapButton(self.ToolbarPanel, id=wx.ID_ANY, bitmap=bmp, size=(bmp.GetWidth() + 3, bmp.GetHeight() + 3), name="retreive", style=wx.NO_BORDER)
         # Retreive = wx.Button(self.ToolbarPanel, label="Read", name="retreive")
-        # Retreive.SetBitmap(wx.Bitmap(r"C:\CAD\Workspace\HILSimulator\HIL_Tools\Images\32px\binoculars.png"), wx.LEFT)
+        # Retreive.SetBitmap(wx.Bitmap(r"Images\32px\binoculars.png"), wx.LEFT)
         Retreive.SetToolTipString("Read data from source")
         self.no_of_files = wx.SpinCtrl(self.ToolbarPanel, max=100000)
         self.no_of_files.SetInitialSize((60, -1))
         self.no_of_files.SetToolTipString("Max numbers of files to read")
         self.no_of_files.SetValue(200)
-        bmp = wx.Bitmap(r"C:\CAD\Workspace\HILSimulator\HIL_Tools\Images\32px\folder.png", wx.BITMAP_TYPE_PNG)
+        bmp = wx.Bitmap(r"Images\32px\folder.png", wx.BITMAP_TYPE_PNG)
         reset_folder = wx.BitmapButton(self.ToolbarPanel, id=wx.ID_ANY, bitmap=bmp, size=(bmp.GetWidth() + 3, bmp.GetHeight() + 3), name="Reset_folder", style=wx.NO_BORDER)
         searchByLbl = wx.StaticText(self.ToolbarPanel, label="Search By:")
         self.categories = wx.ComboBox(self.ToolbarPanel)
         self.search = wx.SearchCtrl(self.ToolbarPanel, style=wx.TE_PROCESS_ENTER)
         self.active_filter_text = wx.StaticText(self.ToolbarPanel, label="0 filter(s)")
-        bmp = wx.Bitmap(r"C:\CAD\Workspace\HILSimulator\HIL_Tools\Images\32px\save.png", wx.BITMAP_TYPE_PNG)
+        bmp = wx.Bitmap(r"Images\32px\save.png", wx.BITMAP_TYPE_PNG)
         store = wx.BitmapButton(self.ToolbarPanel, id=wx.ID_ANY, bitmap=bmp, size=(bmp.GetWidth() + 5, bmp.GetHeight() + 5), name="store", style=wx.NO_BORDER)
         store.SetToolTipString("Save data to choosen location")
-        bmp = wx.Bitmap(r"C:\CAD\Workspace\HILSimulator\HIL_Tools\Images\32px\technical-support.png", wx.BITMAP_TYPE_PNG)
+        bmp = wx.Bitmap(r"Images\32px\technical-support.png", wx.BITMAP_TYPE_PNG)
         generate_report = wx.BitmapButton(self.ToolbarPanel, id=wx.ID_ANY, bitmap=bmp, size=(bmp.GetWidth() + 5, bmp.GetHeight() + 5), name="generate_report", style=wx.NO_BORDER)
         generate_report.SetToolTipString("Generate the selected report/s")
-        bmp = wx.Bitmap(r"C:\CAD\Workspace\HILSimulator\HIL_Tools\Images\32px\Chart.png", wx.BITMAP_TYPE_PNG)
+        bmp = wx.Bitmap(r"Images\32px\Chart.png", wx.BITMAP_TYPE_PNG)
         btn_template = wx.BitmapButton(self.ToolbarPanel, id=wx.ID_ANY, bitmap=bmp, size=(bmp.GetWidth() + 5, bmp.GetHeight() + 5), name="summary_template", style=wx.NO_BORDER)
         btn_template.SetToolTipString("Open the summary page template")
 
@@ -1183,8 +1183,7 @@ class Application(wx.Frame):
         self.testing_days =  wx.StaticText(self.metric_panel, wx.ID_ANY, label=" Testing day(s)")
 
 
-
-        sizer.Add(statistic_txt, pos=(0, 0), flag=wx.wx.ALIGN_CENTER_HORIZONTAL | wx.EXPAND, border=0, span=(1, 7))
+        sizer.Add(statistic_txt, pos=(0, 0), flag=wx.ALIGN_CENTER_HORIZONTAL | wx.EXPAND, border=0, span=(1, 7))
         sizer.Add(self.total_number_tc, pos=(1, 0), flag=wx.ALL | wx.ALIGN_CENTER_HORIZONTAL | wx.ALIGN_CENTER_VERTICAL, border=0, span=(3, 1))
         sizer.Add(testcases_txt, pos=(4, 0), flag=wx.ALL | wx.ALIGN_CENTER_HORIZONTAL, border=0, span=(1, 1))
         sizer.Add(wx.StaticLine(self.metric_panel, style=wx.LI_VERTICAL), pos=(1, 1), flag=wx.ALL | wx.EXPAND, border=10, span=(5, 1))
@@ -1353,7 +1352,7 @@ class Application(wx.Frame):
                     defect_dictionary[incident] = comment
                 else:
                     defect_dictionary[incident] = defect_dictionary[incident] + "\n" + comment
-        print defect_dictionary
+        print(defect_dictionary)
 
         dlg = wx.FileDialog(self, "Create Deviation in...",defaultFile="deviation_assesment", defaultDir=self.retrieve_data_from_folder.GetPath(),  wildcard="CSV files (*.csv)|*.csv", style=wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT)
         if dlg.ShowModal() == wx.ID_CANCEL:
@@ -1462,21 +1461,21 @@ class Application(wx.Frame):
             men = wx.Menu()
 
             opentxt = wx.MenuItem(men, wx.NewId(), 'Open txt')
-            img = wx.Image(r'C:\CAD\Workspace\HILSimulator\HIL_Tools\Images\16px\Text preview.png', wx.BITMAP_TYPE_ANY)
+            img = wx.Image(r'Images\16px\Text preview.png', wx.BITMAP_TYPE_ANY)
             opentxt.SetBitmap(wx.BitmapFromImage(img))
             openhtml = wx.MenuItem(men, wx.NewId(), 'Open html')
-            img = wx.Image(r'C:\CAD\Workspace\HILSimulator\HIL_Tools\Images\16px\Text preview.png', wx.BITMAP_TYPE_ANY)
+            img = wx.Image(r'Images\16px\Text preview.png', wx.BITMAP_TYPE_ANY)
             openhtml.SetBitmap(wx.BitmapFromImage(img))
             replace = wx.MenuItem(men, wx.NewId(), 'Replace')
             openfile = wx.MenuItem(men, wx.NewId(), 'Show in explorer')
-            img = wx.Image(r'C:\CAD\Workspace\HILSimulator\HIL_Tools\Images\16px\Folder.png', wx.BITMAP_TYPE_ANY)
+            img = wx.Image(r'Images\16px\Folder.png', wx.BITMAP_TYPE_ANY)
             openfile.SetBitmap(wx.BitmapFromImage(img))
             check_with_testcampaign = wx.MenuItem(men, wx.NewId(), 'Check with TestCampaign')
             save = wx.MenuItem(men, wx.NewId(), 'Save')
-            img = wx.Image(r'C:\CAD\Workspace\HILSimulator\HIL_Tools\Images\16px\Save2.png', wx.BITMAP_TYPE_ANY)
+            img = wx.Image(r'Images\16px\Save2.png', wx.BITMAP_TYPE_ANY)
             save.SetBitmap(wx.BitmapFromImage(img))
             delete = wx.MenuItem(men, wx.NewId(), 'Delete')
-            img = wx.Image(r'C:\CAD\Workspace\HILSimulator\HIL_Tools\Images\16px\Delete.png', wx.BITMAP_TYPE_ANY)
+            img = wx.Image(r'Images\16px\Delete.png', wx.BITMAP_TYPE_ANY)
             delete.SetBitmap(wx.BitmapFromImage(img))
 
             men.AppendItem(opentxt)
@@ -1608,8 +1607,8 @@ class Application(wx.Frame):
                         if m != "-":
                             shutil.copy(p + "\\" + m, store_folder)
             except:
-                print "ERROR: an error raised with {0}".format(self.dictionary_of_results[index]["GENERIC"]["path"])
-                print traceback.format_exc()
+                print("ERROR: an error raised with {0}".format(self.dictionary_of_results[index]["GENERIC"]["path"]))
+                print(traceback.format_exc())
                 error_message = error_message + "\nError raised with {0}".format(self.dictionary_of_results[index]["GENERIC"]["path"])
 
         if error_message != "":
@@ -1730,7 +1729,7 @@ class Application(wx.Frame):
 
     def onMenuClick(self, event):
         btn = event.GetId()
-        print "Menu clicker btn: ", btn
+        print("Menu clicker btn: ", btn)
 
     def ReadDataandUpdatelist(self):
         progress_dlg = wx.ProgressDialog("Read data", "Reading data from folder.")
@@ -1747,7 +1746,7 @@ class Application(wx.Frame):
         :return:
         """
         if path == "":
-            print "No path available"
+            print("No path available")
             return
         if not os.path.exists(path):
             wx.MessageBox("Path given not valid", "Result viewer", wx.ICON_EXCLAMATION)
@@ -1757,7 +1756,8 @@ class Application(wx.Frame):
         dictionary, list_of_errors = a.get_dictionary()
         if list_of_errors != []:
             for error in list_of_errors:
-                logging.error("Following file contain error: {0}".format(error))
+                # logging.error("Following file contain error: {0}".format(error))
+                print("Following file contain error: {0}".format(error))
         return dictionary
 
     def update_list(self):
@@ -1765,7 +1765,7 @@ class Application(wx.Frame):
             number_of_tc_on_screen = 0
 
             if self.dictionary_of_results == None:
-                print "No RawResult to analyze"
+                print("No RawResult to analyze")
                 return
 
             self.result_list.DeleteAllItems()
@@ -1900,9 +1900,9 @@ class Application(wx.Frame):
                         idx = idx + 1
                         number_of_tc_on_screen += 1
                 except:
-                    print self.dictionary_of_results[index]["GENERIC"]["path"],
-                    print "generated a problem"
-                    print traceback.format_exc()
+                    print(self.dictionary_of_results[index]["GENERIC"]["path"],)
+                    print("generated a problem")
+                    print(traceback.format_exc())
 
 
             self.StatusBar.SetStatusText(str(number_of_tc_on_screen)  + " Item/s")
@@ -2054,7 +2054,7 @@ class Application(wx.Frame):
         about = wx.AboutDialogInfo()
         about.Name = "Result Viewer"
         about.Description = "Used to view/open/manange TestCase result"
-        about.Version = SVN.GetVersion(file_path=__file__)
+        # about.Version = SVN.GetVersion(file_path=__file__)
         about.SetWebSite("www.pornhub.com")
         about.Developers = ["Cere"]
         about.AddArtist("Gabbo")

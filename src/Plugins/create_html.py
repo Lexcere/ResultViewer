@@ -1,5 +1,5 @@
 import tempfile
-import ConfigParser
+import configparser as ConfigParser
 import os
 import random
 import string
