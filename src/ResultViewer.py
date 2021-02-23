@@ -1877,19 +1877,19 @@ class Application(wx.Frame):
                         else:
                             r = "OTHER"
 
-                        self.result_list.InsertStringItem(idx, str(idx))
-                        self.result_list.SetStringItem(idx, self.result_list_column_idx_by_name["TestCase ID"], self.dictionary_of_results[index]["GENERIC"]["test case number"])
-                        self.result_list.SetStringItem(idx, self.result_list_column_idx_by_name["Description"], self.dictionary_of_results[index]["GENERIC"]["test case description"])
-                        self.result_list.SetStringItem(idx, self.result_list_column_idx_by_name["Result"], self.dictionary_of_results[index]["GENERIC"]["result"])
-                        self.result_list.SetStringItem(idx, self.result_list_column_idx_by_name["Comment"], self.dictionary_of_results[index]["GENERIC"]["comment"])
-                        self.result_list.SetStringItem(idx, self.result_list_column_idx_by_name["Sw no"], self.dictionary_of_results[index]["ENVIRONMENT"]["sw number"])
-                        self.result_list.SetStringItem(idx, self.result_list_column_idx_by_name["Sw rev"], self.dictionary_of_results[index]["ENVIRONMENT"]["sw revision"])
-                        self.result_list.SetStringItem(idx, self.result_list_column_idx_by_name["Incident No."], self.dictionary_of_results[index]["GENERIC"]["incident number"])
-                        self.result_list.SetStringItem(idx, self.result_list_column_idx_by_name["Date"], self.dictionary_of_results[index]["GENERIC"]["test execution date"])
-                        self.result_list.SetStringItem(idx, self.result_list_column_idx_by_name["Time"], self.dictionary_of_results[index]["GENERIC"]["test execution time"])
-                        self.result_list.SetStringItem(idx, self.result_list_column_idx_by_name["PC"], self.dictionary_of_results[index]["ENVIRONMENT"]["pc name"])
-                        self.result_list.SetStringItem(idx, self.result_list_column_idx_by_name["Checksum cal/appl"], self.dictionary_of_results[index]["ENVIRONMENT"]["checksum calibration and application"])
-                        self.result_list.SetStringItem(idx, self.result_list_column_idx_by_name["Path"], self.dictionary_of_results[index]["GENERIC"]["path"])
+                        self.result_list.InsertItem(idx, str(idx))
+                        self.result_list.SetItem(idx, self.result_list_column_idx_by_name["TestCase ID"], self.dictionary_of_results[index]["GENERIC"]["test case number"])
+                        self.result_list.SetItem(idx, self.result_list_column_idx_by_name["Description"], self.dictionary_of_results[index]["GENERIC"]["test case description"])
+                        self.result_list.SetItem(idx, self.result_list_column_idx_by_name["Result"], self.dictionary_of_results[index]["GENERIC"]["result"])
+                        self.result_list.SetItem(idx, self.result_list_column_idx_by_name["Comment"], self.dictionary_of_results[index]["GENERIC"]["comment"])
+                        self.result_list.SetItem(idx, self.result_list_column_idx_by_name["Sw no"], self.dictionary_of_results[index]["ENVIRONMENT"]["sw number"])
+                        self.result_list.SetItem(idx, self.result_list_column_idx_by_name["Sw rev"], self.dictionary_of_results[index]["ENVIRONMENT"]["sw revision"])
+                        self.result_list.SetItem(idx, self.result_list_column_idx_by_name["Incident No."], self.dictionary_of_results[index]["GENERIC"]["incident number"])
+                        self.result_list.SetItem(idx, self.result_list_column_idx_by_name["Date"], self.dictionary_of_results[index]["GENERIC"]["test execution date"])
+                        self.result_list.SetItem(idx, self.result_list_column_idx_by_name["Time"], self.dictionary_of_results[index]["GENERIC"]["test execution time"])
+                        self.result_list.SetItem(idx, self.result_list_column_idx_by_name["PC"], self.dictionary_of_results[index]["ENVIRONMENT"]["pc name"])
+                        self.result_list.SetItem(idx, self.result_list_column_idx_by_name["Checksum cal/appl"], self.dictionary_of_results[index]["ENVIRONMENT"]["checksum calibration and application"])
+                        self.result_list.SetItem(idx, self.result_list_column_idx_by_name["Path"], self.dictionary_of_results[index]["GENERIC"]["path"])
                         if r == "OK":
                             self.result_list.SetItemBackgroundColour(idx, "green")
                         elif r == "NOK":
@@ -2051,14 +2051,14 @@ class Application(wx.Frame):
             wx.MessageBox(traceback.format_exc(), "Result Viewer", wx.ICON_ERROR)
 
     def AboutDialog(self):
-        about = wx.AboutDialogInfo()
+        about = wx.adv.AboutDialogInfo()
         about.Name = "Result Viewer"
         about.Description = "Used to view/open/manange TestCase result"
         # about.Version = SVN.GetVersion(file_path=__file__)
         about.SetWebSite("www.pornhub.com")
         about.Developers = ["Cere"]
         about.AddArtist("Gabbo")
-        wx.AboutBox(about)
+        wx.adv.AboutBox(about)
 
 app = wx.App(False)
 frame = Application(None, "Result Viewer")
