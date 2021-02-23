@@ -1576,11 +1576,11 @@ class Application(wx.Frame):
             return
 
         # check if the folder exist
-        if not os.path.isdir(self.result_store_folder.GetTextCtrlValue()):
+        if not os.path.isdir(self.result_store_folder.GetPath()):
             wx.MessageBox("No valid directory choosen", "Result viewer", wx.ICON_EXCLAMATION)
             return
 
-        store_folder = self.result_store_folder.GetTextCtrlValue()
+        store_folder = self.result_store_folder.GetPath()
 
         list_item = []
         # read the selected item/s and create a list of the item path
