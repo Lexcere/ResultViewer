@@ -2042,7 +2042,7 @@ class Application(wx.Frame):
         os.startfile(r"C:\CAD\Workspace\HILSimulator\HIL_Tools\TestCase_RawResult_Manager\.data\Manual\Manual.pdf")
 
     def ReportProblem(self):
-        os.startfile("https://jira.zdv.liebherr.i/browse/LMBHST-260")
+        os.startfile("https://github.com/Lexcere/ResultViewer/issues/new")
 
     def OpenLogFile(self):
         try:
