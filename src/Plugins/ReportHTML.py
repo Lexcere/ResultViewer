@@ -1,5 +1,5 @@
 import tempfile
-import configparser
+import configparser as ConfigParser
 import os
 import random
 import string
@@ -17,7 +17,7 @@ class ReportHTML():
             print("Folder choosen does not exist")
             return -1
 
-        self.files= files
+        self.files = files
         self.Config = ConfigParser.ConfigParser()
         self.save_directory = saveDirectory
         self.info_available = False
@@ -47,7 +47,6 @@ class ReportHTML():
         # End of HEAD Section
         self.report.write('</head>\n')
 
-
         # Start of body section
         self.report.write('<body>\n')
 
@@ -59,30 +58,21 @@ class ReportHTML():
         self.report.write("""<button class="tablinks" onclick="showContent(event, 'Details')">Details</button>\n""")
         self.report.write('</div>\n')
 
-
         self.report.write('<div id="Summary" class="tabcontent" style="display:block">\n')  # style is added to make the tab active at beginnin
         self.CreateSummary()
         self.report.write('</div>\n')
-
-
 
         self.report.write('<div id="Result" class="tabcontent">\n')
         self.CreateResultTable()
         self.report.write('</div>\n')
 
-
-
         self.report.write('<div id="Traceability" class="tabcontent">\n')
         self.CreatMatrixtTable()
         self.report.write('</div>\n')
 
-
-
         self.report.write('<div id="Deviation" class="tabcontent">\n')
         self.CreateDeviationTable()
         self.report.write('</div>\n')
-
-
 
         self.report.write('<div id="Details" class="tabcontent">\n')
         self.CreateDetailsTable()
