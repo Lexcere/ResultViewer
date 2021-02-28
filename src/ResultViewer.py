@@ -32,7 +32,8 @@ log_file_name = datetime.datetime.now().strftime('%Y-%m-%d %H-%M-%S') + ".log"
 # logging.debug("====================")
 # logging.debug("Starting application")
 
-class Setting():
+
+class Setting:
     def __init__(self, path):
         self.path = path
         reset_needed = False
@@ -45,9 +46,9 @@ class Setting():
         self.Config = ConfigParser.ConfigParser()
         self.Config.read(self.path)
         if reset_needed:
-            self.Reset()
+            self.reset()
 
-    def Reset(self):
+    def reset(self):
         self.Config.add_section("file")
         self.Config.set(section="file", option="read folder", value="")
         self.Config.set(section="file", option="number of readed files", value="200")
@@ -60,10 +61,10 @@ class Setting():
         self.Config.write(setting_f)
         setting_f.close()
 
-    def Read(self, section="", option=""):
+    def read(self, section="", option=""):
         return self.Config.get(section=section, option=option)
 
-    def Write(self, section="", option="", value=""):
+    def write(self, section="", option="", value=""):
         self.Config.read(self.path)
         self.Config.set(section=section, option=option, value=value)
 
@@ -72,7 +73,7 @@ class Setting():
         file_to_write.close()
 
 
-class TestResultParser():
+class TestResultParser:
     def __init__(self, path, limit_number_of_file = -1, recursive=False):
         self.dizionario = {}
         self.errors = []
@@ -95,7 +96,6 @@ class TestResultParser():
         # keep the first "n" files
         if limit_number_of_file != -1:
             list_of_f = list_of_f[:limit_number_of_file]
-
 
         thrds = []
         i = 1
@@ -1069,9 +1069,9 @@ class Application(wx.Frame):
         self.recursive.Check()
         self.selected_reports["overview"].Check()
         self.selected_reports["trace"].Check()
-        if self.setting.Read(section="windows", option="metric panel") == "True":
+        if self.setting.read(section="windows", option="metric panel") == "True":
             self.metric_panel_visibility.Check()
-        if self.setting.Read(section="windows", option="messages panel") == "True":
+        if self.setting.read(section="windows", option="messages panel") == "True":
             self.message_panel_visibility.Check()
 
         reset_folder.Enable(False)
@@ -1224,17 +1224,17 @@ class Application(wx.Frame):
     def ToggleVisibilityPanel(self):
         if self.message_panel_visibility.IsChecked():
             self.MessagePanel.Show()
-            self.setting.Write(section="windows", option="messages panel", value="True")
+            self.setting.write(section="windows", option="messages panel", value="True")
         elif not self.message_panel_visibility.IsChecked():
             self.MessagePanel.Hide()
-            self.setting.Write(section="windows", option="messages panel", value="False")
+            self.setting.write(section="windows", option="messages panel", value="False")
 
         if self.metric_panel_visibility.IsChecked():
             self.metric_panel.Show()
-            self.setting.Write(section="windows", option="metric panel", value="True")
+            self.setting.write(section="windows", option="metric panel", value="True")
         elif not self.metric_panel_visibility.IsChecked():
             self.metric_panel.Hide()
-            self.setting.Write(section="windows", option="metric panel", value="False")
+            self.setting.write(section="windows", option="metric panel", value="False")
 
         self.Layout()
 
