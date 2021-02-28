@@ -2028,7 +2028,7 @@ class Application(wx.Frame):
         self.Layout()
 
     def Manual(self):
-        os.startfile(r"C:\CAD\Workspace\HILSimulator\HIL_Tools\TestCase_RawResult_Manager\.data\Manual\Manual.pdf")
+        os.startfile(r".data\Manual\Manual.pdf")
 
     def ReportProblem(self):
         os.startfile("https://github.com/Lexcere/ResultViewer/issues/new")
