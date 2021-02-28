@@ -860,7 +860,6 @@ class Application(wx.Frame):
 
         self.result_list_column_idx_by_name = {}
 
-
         # Draw GUI
         wx.Frame.__init__(self, parent, title=title)  # , size=(200, 100))
 
@@ -868,7 +867,7 @@ class Application(wx.Frame):
         splash = wx.adv.SplashScreen(bitmap, wx.adv.SPLASH_CENTER_ON_SCREEN | wx.adv.SPLASH_TIMEOUT, 1000, self)
         splash.Show()
 
-        self.DrawGUI()
+        self.draw_gui()
 
         # Logic stuff
         idx = 0
@@ -882,7 +881,6 @@ class Application(wx.Frame):
         self.active_filter = {}
         for cat in categories:
             self.active_filter[cat] = []
-
 
         if self.logged_user.find("lmbhil") >= 0:
             self.active_filter["PC"].append(socket.gethostname())
@@ -902,12 +900,12 @@ class Application(wx.Frame):
         self.Maximize(True)
         self.Show(True)
 
-    def DrawGUI(self):
+    def draw_gui(self):
         sizer = wx.GridBagSizer()
 
-        self.DrawMenuBar()
-        self.DrawCustomToolbar()
-        self.DrawMessages()
+        self.draw_menu_bar()
+        self.draw_custom_toolbar()
+        self.draw_message()
 
         self.retrieve_data_from_folder = wx.DirPickerCtrl(self, message="Choose folder", style=wx.DIRP_USE_TEXTCTRL | wx.DIRP_SMALL, name="retrieve_data_from_folder")
         self.retrieve_data_from_folder.SetToolTip("Source folder for data")
@@ -944,7 +942,7 @@ class Application(wx.Frame):
         # pane.Expand()
         # pane.Bind(wx.EVT_COLLAPSIBLEPANE_CHANGED, self.OnPaneChanged)
         # self.metric_panel = pane.GetPane()
-        self.DrawMetric()
+        self.draw_metric()
 
         sizer.Add(self.ToolbarPanel, pos=(0, 0), flag=wx.ALL | wx.EXPAND, span=(1, 3))
         sizer.Add(wx.StaticText(self, label="Reading directory: "), pos=(1, 0), flag=wx.ALIGN_CENTER_VERTICAL | wx.ALIGN_RIGHT, span=(1, 1))
@@ -966,10 +964,10 @@ class Application(wx.Frame):
         self.statusbar.SetStatusText("0 Item/s")
         # self.statusbar.SetStatusText("v. " + SVN.GetVersion(file_path=__file__), 3)
 
-        self.ToggleVisibilityPanel()
+        self.toggle_visibility_panel()
 
-    def DrawMenuBar(self):
-        # create the menubar
+    def draw_menu_bar(self):
+        # create the menu bar
         menubar = wx.MenuBar()
 
         # create menu/s
@@ -1091,8 +1089,8 @@ class Application(wx.Frame):
         self.Bind(wx.EVT_MENU, lambda event: self.GenerateReportHTML(), generate_report_html)
         self.Bind(wx.EVT_MENU, lambda event: self.GenerateReport(), generate_report)
         self.Bind(wx.EVT_MENU, lambda event: self.ViewReportTemplate(), open_summary)
-        self.Bind(wx.EVT_MENU, lambda event: self.ToggleVisibilityPanel(), self.metric_panel_visibility)
-        self.Bind(wx.EVT_MENU, lambda event: self.ToggleVisibilityPanel(), self.message_panel_visibility)
+        self.Bind(wx.EVT_MENU, lambda event: self.toggle_visibility_panel(), self.metric_panel_visibility)
+        self.Bind(wx.EVT_MENU, lambda event: self.toggle_visibility_panel(), self.message_panel_visibility)
         self.Bind(wx.EVT_MENU, lambda event: self.Manual(), manual)
         self.Bind(wx.EVT_MENU, lambda event: self.ReportProblem(), report_problem)
         self.Bind(wx.EVT_MENU, lambda event: self.OpenLogFile(), view_log_file)
@@ -1107,7 +1105,7 @@ class Application(wx.Frame):
 
         self.SetMenuBar(menubar)
 
-    def DrawCustomToolbar(self):
+    def draw_custom_toolbar(self):
         self.ToolbarPanel = wx.Panel(self)  # Remove the border -> bd=0, relief='ridge'
         self.ToolbarPanel.SetBackgroundColour(wx.Colour(245, 246, 247))
 
@@ -1160,7 +1158,7 @@ class Application(wx.Frame):
 
         self.ToolbarPanel.SetSizer(sizer)
 
-    def DrawMetric(self):
+    def draw_metric(self):
         self.metric_panel = wx.Panel(self)  # Remove the border -> bd=0, relief='ridge'
         self.metric_panel.SetBackgroundColour(wx.WHITE)
 
@@ -1182,7 +1180,6 @@ class Application(wx.Frame):
         self.defect = wx.StaticText(self.metric_panel, wx.ID_ANY, label=" Defect(s)")
         self.testing_days = wx.StaticText(self.metric_panel, wx.ID_ANY, label=" Testing day(s)")
 
-
         sizer.Add(statistic_txt, pos=(0, 0), flag=wx.ALIGN_CENTER_HORIZONTAL | wx.EXPAND, border=0, span=(1, 7))
         sizer.Add(self.total_number_tc, pos=(1, 0), flag=wx.ALL | wx.ALIGN_CENTER_HORIZONTAL | wx.ALIGN_CENTER_VERTICAL, border=0, span=(3, 1))
         sizer.Add(testcases_txt, pos=(4, 0), flag=wx.ALL | wx.ALIGN_CENTER_HORIZONTAL, border=0, span=(1, 1))
@@ -1201,7 +1198,7 @@ class Application(wx.Frame):
 
         self.metric_panel.SetSizer(sizer)
 
-    def DrawMessages(self):
+    def draw_message(self):
         self.MessagePanel = wx.Panel(self)  # Remove the border -> bd=0, relief='ridge'
         self.MessagePanel.SetBackgroundColour(wx.WHITE)
 
@@ -1214,14 +1211,13 @@ class Application(wx.Frame):
         # self.tree_ctrl.AppendItem(self.root, '1st message')
         self.tree_ctrl.Expand(self.root_errors)
 
-
         sizer.Add(message_txt, pos=(0, 0), flag=wx.TOP | wx.ALIGN_CENTER_HORIZONTAL | wx.ALIGN_BOTTOM | wx.EXPAND, border=0, span=(1, 1))
         sizer.Add(self.tree_ctrl, pos=(1, 0), flag= wx.ALIGN_BOTTOM | wx.EXPAND, border=0, span=(1, 1))
 
         sizer.AddGrowableCol(0)
         self.MessagePanel.SetSizer(sizer)
 
-    def ToggleVisibilityPanel(self):
+    def toggle_visibility_panel(self):
         if self.message_panel_visibility.IsChecked():
             self.MessagePanel.Show()
             self.setting.write(section="windows", option="messages panel", value="True")
@@ -1361,7 +1357,6 @@ class Application(wx.Frame):
             save_path = dlg.GetPath()
         dlg.Destroy()
 
-
         deviation = open(save_path, "w")
         deviation.write('"JIRA (do not change)";"Blocking (yes/no)";Comment (CSM + AC);;TestCase comment (do not change, only for info)\n')
         for jira in defect_dictionary.keys():
@@ -1394,7 +1389,6 @@ class Application(wx.Frame):
         if not list_item:
             wx.MessageBox("No result are shown in the list", "Empty list", wx.ICON_INFORMATION)
             return
-
 
         progress_dlg = wx.ProgressDialog("Result Viewer", "Generating report...")
         progress_dlg.Pulse()
@@ -1613,7 +1607,6 @@ class Application(wx.Frame):
 
         if error_message != "":
             wx.MessageBox(error_message, "Result viewer", wx.ICON_EXCLAMATION)
-
 
             self.statusbar.SetStatusText("File/s stored",1)
 
@@ -1863,7 +1856,6 @@ class Application(wx.Frame):
                                     write_this_item = True
                                     break
 
-
                     if not write_this_item:
                         continue
 
@@ -1903,7 +1895,6 @@ class Application(wx.Frame):
                     print(self.dictionary_of_results[index]["GENERIC"]["path"],)
                     print("generated a problem")
                     print(traceback.format_exc())
-
 
             self.StatusBar.SetStatusText(str(number_of_tc_on_screen)  + " Item/s")
 
@@ -1995,7 +1986,6 @@ class Application(wx.Frame):
             # add checksum
             checksum_list.append(tmp_checksum)
 
-
         if total_tc != 0:
             percent_ok = (100.0/total_tc)*ok_tc
             percent_nok = (100.0/total_tc)*nok_tc
@@ -2035,7 +2025,6 @@ class Application(wx.Frame):
         if not ready_for_generation:
             self.tree_ctrl.Expand(self.root_errors)
 
-
         self.Layout()
 
     def Manual(self):
@@ -2063,4 +2052,3 @@ class Application(wx.Frame):
 app = wx.App(False)
 frame = Application(None, "Result Viewer")
 app.MainLoop()
-
