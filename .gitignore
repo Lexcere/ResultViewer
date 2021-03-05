@@ -1,6 +1,9 @@
+# folder
 build
 venv
 .idea
+
+# Extension
 *.pyw
 *.pyc
 *.log
