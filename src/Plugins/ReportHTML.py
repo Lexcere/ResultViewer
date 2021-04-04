@@ -9,6 +9,9 @@ import datetime
 import csv
 import collections
 
+GREEN = "#99ee99"
+RED = "#ff6666"
+YELLOW = "#fed84f"
 
 class ReportHTML():
     def __init__(self,saveDirectory, files=None):
@@ -540,18 +543,18 @@ class ReportHTML():
         self.report.write('	<th rowspan="2">{0}</th>\n'.format(total_tc))
         self.report.write('	<td><font color="green">{0}</font></td>\n'.format(ok_tc))
         self.report.write('	<td><font color="green">{0:.2f}%</font></td>\n'.format(percent_ok))
-        self.report.write('	<td><font color="green">OK</font></td>\n')
+        self.report.write('	<td><font color="green">PASS</font></td>\n')
         self.report.write('	</tr>\n')
         self.report.write('	<tr>\n')
         self.report.write('	<td><font color="red">{0}</font></td>\n'.format(nok_tc))
         self.report.write('	<td><font color="red">{0:.2f}%</font></td>\n'.format(percent_nok))
-        self.report.write('	<td><font color="red">NOT OK</font></td>\n')
+        self.report.write('	<td><font color="red">FAIL</font></td>\n')
         self.report.write('	</tr>\n')
         self.report.write('	<tr>\n')
         self.report.write('	<th>TestCases</th>\n')
-        self.report.write('	<td><font color="blue">{0}</font></td>\n'.format(not_tested_tc))
-        self.report.write('	<td><font color="blue">{0:.2f}%</font></td>\n'.format(percent_not_tested))
-        self.report.write('	<td nowrap><font color="blue">NOT TESTED</font></td>\n')
+        self.report.write(f'	<td><font color="{YELLOW}">{not_tested_tc}</font></td>\n')
+        self.report.write(f'	<td><font color="{YELLOW}">{0:.2f}%</font></td>\n'.format(percent_not_tested))
+        self.report.write(f'	<td nowrap><font color="{YELLOW}">SKIPPED</font></td>\n')
         self.report.write('	</tr>\n')
         self.report.write('</table>\n')
         self.report.write('</div>\n')
@@ -562,18 +565,18 @@ class ReportHTML():
         self.report.write('	<th rowspan="2">{0}</th>\n'.format(safety_total_tc))
         self.report.write('	<td><font color="green">{0}</font></td>\n'.format(safety_ok_tc))
         self.report.write('	<td><font color="green">{0:.2f}%</font></td>\n'.format(safety_percent_ok))
-        self.report.write('	<td><font color="green">OK</font></td>\n')
+        self.report.write('	<td><font color="green">PASS</font></td>\n')
         self.report.write('	</tr>\n')
         self.report.write('	<tr>\n')
         self.report.write('	<td><font color="red">{0}</font></td>\n'.format(safety_nok_tc))
         self.report.write('	<td><font color="red">{0:.2f}%</font></td>\n'.format(safety_percent_nok))
-        self.report.write('	<td><font color="red">NOT OK</font></td>\n')
+        self.report.write('	<td><font color="red">FAIL</font></td>\n')
         self.report.write('	</tr>\n')
         self.report.write('	<tr>\n')
         self.report.write('	<th>Safety</th>\n')
-        self.report.write('	<td><font color="blue">{0}</font></td>\n'.format(safety_not_tested_tc))
-        self.report.write('	<td><font color="blue">{0:.2f}%</font></td>\n'.format(safety_percent_not_tested))
-        self.report.write('	<td nowrap><font color="blue">NOT TESTED</font></td>\n')
+        self.report.write(f'	<td><font color="{YELLOW}">{safety_not_tested_tc}</font></td>\n')
+        self.report.write(f'	<td><font color="{YELLOW}">{0:.2f}%</font></td>\n'.format(safety_percent_not_tested))
+        self.report.write(f'	<td nowrap><font color="{YELLOW}">SKIPPED</font></td>\n')
         self.report.write('	</tr>\n')
         self.report.write('</table>\n')
         self.report.write('</div>\n')
@@ -584,18 +587,18 @@ class ReportHTML():
         self.report.write('	<th rowspan="2">{0}</th>\n'.format(ramd_total_tc))
         self.report.write('	<td><font color="green">{0}</font></td>\n'.format(ramd_ok_tc))
         self.report.write('	<td><font color="green">{0:.2f}%</font></td>\n'.format(ramd_percent_ok))
-        self.report.write('	<td><font color="green">OK</font></td>\n')
+        self.report.write('	<td><font color="green">PASS</font></td>\n')
         self.report.write('	</tr>\n')
         self.report.write('	<tr>\n')
         self.report.write('	<td><font color="red">{0}</font></td>\n'.format(ramd_nok_tc))
         self.report.write('	<td><font color="red">{0:.2f}%</font></td>\n'.format(ramd_percent_nok))
-        self.report.write('	<td><font color="red">NOT OK</font></td>\n')
+        self.report.write('	<td><font color="red">FAIL</font></td>\n')
         self.report.write('	</tr>\n')
         self.report.write('	<tr>\n')
         self.report.write('	<th>RAMD</th>\n')
-        self.report.write('	<td><font color="blue">{0}</font></td>\n'.format(ramd_not_tested_tc))
-        self.report.write('	<td><font color="blue">{0:.2f}%</font></td>\n'.format(ramd_percent_not_tested))
-        self.report.write('	<td nowrap><font color="blue">NOT TESTED</font></td>\n')
+        self.report.write(f'	<td><font color="{YELLOW}">{0}</font></td>\n'.format(ramd_not_tested_tc))
+        self.report.write(f'	<td><font color="{YELLOW}">{0:.2f}%</font></td>\n'.format(ramd_percent_not_tested))
+        self.report.write(f'	<td nowrap><font color="{YELLOW}">SKIPPED</font></td>\n')
         self.report.write('	</tr>\n')
         self.report.write('</table>\n')
         self.report.write('</div>\n')
@@ -650,15 +653,15 @@ class ReportHTML():
         self.report.write('		  </tr>\n')
         self.report.write('<tr>\n')
         self.report.write('<tr>\n')
-        self.report.write('<td nowrap bgcolor="green">OK</td>\n')
+        self.report.write('<td nowrap bgcolor="green">PASS</td>\n')
         self.report.write('<td nowrap>Test Case executed with expected results. No problems detected.</td>\n')
         self.report.write('</tr>\n')
         self.report.write('<tr>\n')
-        self.report.write('<td nowrap bgcolor="red">NOT OK</td>\n')
+        self.report.write('<td nowrap bgcolor="red">FAIL</td>\n')
         self.report.write('<td nowrap>Test Case executed with unexpected results.<br>A description of the issue(s) can be found in the JIRA incident number linked to each test case.</td>\n')
         self.report.write('</tr>\n')
         self.report.write('<tr>\n')
-        self.report.write('<td nowrap bgcolor="blue">NOT TESTED</td>\n')
+        self.report.write(f'<td nowrap bgcolor="{YELLOW}">SKIPPED</td>\n')
         self.report.write('<td nowrap>The test case is not required for this application or cannot be tested for technical reasons.<br>Unless specifically written in the release notes, no further tests or actions are required</td>\n')
         self.report.write('</tr>\n')
         self.report.write('</table>\n')
@@ -694,9 +697,9 @@ class ReportHTML():
             self.report.write('<td>{0}</td>\n'.format(requirement))
             self.report.write('<td>{0}</td>\n'.format(self.Config.get(section="GENERIC", option="test case description")))
             if self.Config.get(section="GENERIC", option="result") == "OK":
-                self.report.write('<td nowrap bgcolor="#00FF00">{0}</td>\n'.format(self.Config.get(section="GENERIC", option="result")))
+                self.report.write(f'<td nowrap bgcolor="{GREEN}">PASS</td>\n')
             elif self.Config.get(section="GENERIC", option="result") == "NOT OK":
-                self.report.write('<td nowrap bgcolor="#FF0000">{0}</td>\n'.format(self.Config.get(section="GENERIC", option="result")))
+                self.report.write(f'<td nowrap bgcolor="{RED}">FAIL</td>\n')
             else:
                 self.report.write('<td nowrap>{0}</td>\n'.format(self.Config.get(section="GENERIC", option="result")))
             self.report.write('<td>{0}</td>\n'.format(self.Config.get(section="GENERIC", option="comment")))
@@ -773,20 +776,20 @@ class ReportHTML():
             ok = (ok * 100) / total_test
             nok = (nok * 100) / total_test
             not_tested = (not_tested * 100) / total_test
-            value_to_write = "OK: " + str(ok) + "%<br>"
-            value_to_write = value_to_write + "NOT OK: " + str(nok) + "%<br>"
-            value_to_write = value_to_write + "NOT TESTED: " + str(not_tested) + "%"
+            value_to_write = "PASS: " + str(ok) + "%<br>"
+            value_to_write = value_to_write + "FAIL: " + str(nok) + "%<br>"
+            value_to_write = value_to_write + "SKIPPED: " + str(not_tested) + "%"
             self.report.write('<td nowrap>{0}</td>\n'.format(value_to_write))
 
             # write the status
             if ok == 100:
-                self.report.write('<td nowrap bgcolor="#00FF00">OK</td>\n')
+                self.report.write(f'<td nowrap bgcolor="{GREEN}">PASS</td>\n')
             elif nok > 0:
-                self.report.write('<td nowrap bgcolor="#FF0000">NOT OK</td>\n')
+                self.report.write(f'<td nowrap bgcolor="{RED}">FAIL</td>\n')
             elif not_tested == 100:
-                self.report.write('<td nowrap >NOT TESTED</td>\n')
+                self.report.write(f'<td nowrap bgcolor="{YELLOW}">SKIPPED</td>\n')
             elif not_tested > 0 and nok == 0 and ok > 0:
-                self.report.write('<td nowrap bgcolor="#FFFF00">PARTIAL</td>\n')
+                self.report.write(f'<td nowrap bgcolor="{YELLOW}">PARTIAL</td>\n')
 
             # write the Comment/s
             value_to_write = ""
