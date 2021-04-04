@@ -25,6 +25,9 @@ import logging
 from Plugins import ReportHTML
 import scandir
 
+GREEN = wx.Colour(153, 238, 153)
+RED = wx.Colour(255, 102, 102)
+YELLOW = wx.Colour(254, 216, 79)
 
 # Create the log file for the application
 log_file_name = datetime.datetime.now().strftime('%Y-%m-%d %H-%M-%S') + ".log"
@@ -1170,9 +1173,9 @@ class Application(wx.Frame):
         testcases_txt = wx.StaticText(self.metric_panel, wx.ID_ANY, label="TestCases")
         testcases_txt.SetFont(wx.Font(12, wx.SWISS, wx.NORMAL, wx.BOLD))
         self.tc_ok = wx.StaticText(self.metric_panel, wx.ID_ANY, label=" OK")
-        self.tc_ok.SetForegroundColour(wx.GREEN)
+        self.tc_ok.SetForegroundColour(GREEN)
         self.tc_nok = wx.StaticText(self.metric_panel, wx.ID_ANY, label=" NOT OK")
-        self.tc_nok.SetForegroundColour(wx.RED)
+        self.tc_nok.SetForegroundColour(RED)
         self.tc_not_tested = wx.StaticText(self.metric_panel, wx.ID_ANY, label=" NOT TESTED")
         self.tc_not_tested.SetForegroundColour(wx.BLUE)
         self.tc_manual = wx.StaticText(self.metric_panel, wx.ID_ANY, label=" MANUAL")
@@ -1883,9 +1886,9 @@ class Application(wx.Frame):
                         self.result_list.SetItem(idx, self.result_list_column_idx_by_name["Checksum cal/appl"], self.dictionary_of_results[index]["ENVIRONMENT"]["checksum calibration and application"])
                         self.result_list.SetItem(idx, self.result_list_column_idx_by_name["Path"], self.dictionary_of_results[index]["GENERIC"]["path"])
                         if r == "OK":
-                            self.result_list.SetItemBackgroundColour(idx, "green")
+                            self.result_list.SetItemBackgroundColour(idx, GREEN)
                         elif r == "NOK":
-                            self.result_list.SetItemBackgroundColour(idx, "red")
+                            self.result_list.SetItemBackgroundColour(idx, RED)
                         elif r == "MANUAL":
                             self.result_list.SetItemBackgroundColour(idx, "yellow")
 
