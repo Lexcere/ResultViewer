@@ -1890,7 +1890,7 @@ class Application(wx.Frame):
                         elif r == "NOK":
                             self.result_list.SetItemBackgroundColour(idx, RED)
                         elif r == "MANUAL":
-                            self.result_list.SetItemBackgroundColour(idx, "yellow")
+                            self.result_list.SetItemBackgroundColour(idx, YELLOW)
 
                         idx = idx + 1
                         number_of_tc_on_screen += 1
