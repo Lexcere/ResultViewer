@@ -950,7 +950,7 @@ class Application(wx.Frame):
         sizer.Add(wx.StaticText(self, label="Saving directory: "), pos=(2, 0), flag=wx.ALIGN_CENTER_VERTICAL | wx.ALIGN_RIGHT, span=(1, 1))
         sizer.Add(self.result_store_folder, pos=(2, 1), flag=wx.TOP | wx.EXPAND, border=3, span=(1, 1))
         sizer.Add(self.metric_panel, pos=(3, 0), flag=wx.ALL | wx.EXPAND, border=0, span=(1, 2))
-        sizer.Add(self.result_list, pos=(4, 0), flag=wx.ALL | wx.ALIGN_CENTER_VERTICAL | wx.EXPAND, border=0, span=(1, 2))
+        sizer.Add(self.result_list, pos=(4, 0), flag=wx.ALL | wx.EXPAND, border=0, span=(1, 2))
         sizer.Add(self.MessagePanel, pos=(5, 0), flag=wx.ALL | wx.ALIGN_CENTER_VERTICAL | wx.EXPAND, border=0, span=(1, 2))
 
         sizer.AddGrowableCol(1)
