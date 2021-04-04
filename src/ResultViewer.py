@@ -912,7 +912,7 @@ class Application(wx.Frame):
 
         self.retrieve_data_from_folder = wx.DirPickerCtrl(self, message="Choose folder", style=wx.DIRP_USE_TEXTCTRL | wx.DIRP_SMALL, name="retrieve_data_from_folder")
         self.retrieve_data_from_folder.SetToolTip("Source folder for data")
-        self.retrieve_data_from_folder.SetPath("Z:\Public\Transfert\HIL\Results\RawResults")
+        self.retrieve_data_from_folder.SetPath(r"C:\Users\Alex\Documents\GitHub\ResultViewer\test")
 
         self.result_store_folder = wx.DirPickerCtrl(self, message="Choose folder", style=wx.DIRP_USE_TEXTCTRL | wx.DIRP_SMALL)
         self.result_store_folder.SetInitialSize((400, -1))
