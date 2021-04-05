@@ -5,6 +5,10 @@ import random
 import string
 import re
 
+GREEN = "#99ee99"
+RED = "#ff6666"
+YELLOW = "#fed84f"
+
 class ResultObject(object):
     def __init__(self):
         self.title = ""
@@ -287,7 +291,7 @@ class TC_result_HTML():
                 for d in detail:
                     self.temp_obj.details.append(d)
             if self.temp_obj.title.find("NOT OK") >= 0 or self.temp_obj.title.find("TestHandler") >= 0:
-                self.temp_obj.font_color = "red"
+                self.temp_obj.font_color = RED
             self.pre_content.append(self.temp_obj)
         else:
             self.temp_obj.details.append(text_to_write)
