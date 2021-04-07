@@ -23,7 +23,7 @@ class TC_result_HTML():
         self.tmp_path = tempfile.mkdtemp()
 
     def create_file(self, tc_raw_result_path=r""):
-        #Get the value in txt file
+        # Get the value in txt file
         Config = ConfigParser.ConfigParser()
         Config.read(tc_raw_result_path)
         self.tc_raw_result_path = tc_raw_result_path
@@ -50,16 +50,16 @@ class TC_result_HTML():
         self.tc_can2 = Config.get(section="ENVIRONMENT", option="can2 protocol")
         self.tc_eng  = Config.get(section="ENVIRONMENT", option="engine variant")
 
-        #create randon name for file
+        # create randon name for file
         self.name = ""
-        for i in range(0,10,1):
+        for i in range(0, 10, 1):
             self.name += random.choice(string.ascii_letters)
 
-        #create the file
+        # create the file
         self.pre_content = []
-        self.open()
+        self._open()
         for line in log:
-            self.body(line)
+            self._body(line)
 
         for obj in self.pre_content:
             if obj.title.find("*********** ") >= 0:
@@ -73,12 +73,11 @@ class TC_result_HTML():
                     self.f.write('{0}<br>'.format(detail))
                 self.f.write('</div>\n')
 
-
-        self.close()
+        self._close()
         self.f = ""
         return self.tmp_path + r"\\" + self.name + ".html"
 
-    def open(self):
+    def _open(self):
         self.f = open(self.tmp_path + r"\\" + self.name + ".html", "w")
         self.f.write('<!DOCTYPEhtml>\n')
         # Create HTML StyleSheet
@@ -278,7 +277,7 @@ class TC_result_HTML():
         self.f.write("<input type='button' id='toggle_button' value='Expand all' />\n")
         self.f.write("<br>\n")
 
-    def body(self, text_to_write=""):
+    def _body(self, text_to_write=""):
         if re.search(r'\d\d:\d\d:\d\d', text_to_write) is not None:
             self.temp_obj = ResultObject()
             index = re.search("\d\d:\d\d:\d\d.\d\d\d", text_to_write).end()
@@ -296,7 +295,7 @@ class TC_result_HTML():
         else:
             self.temp_obj.details.append(text_to_write)
 
-    def close(self):
+    def _close(self):
         # CREATE SCRIPT SECTION
         # self.f.write("<script src='http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.js'></script>\n")
         self.f.write("<script src='C:\CAD\Workspace\HILSimulator\HIL_Tools\TestCase_RawResult_Manager\.data\jquery-3.2.1.js.download'></script>\n")
