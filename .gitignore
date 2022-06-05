@@ -3,7 +3,6 @@ build
 venv
 .idea
 .vscode
-test
 
 # Extension
 *.pyw
