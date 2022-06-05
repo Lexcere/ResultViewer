@@ -1,6 +1,18 @@
+import pytest
 from src.ResultsParser import TestResultParser
 
 
-def test_number_of_files():
+@pytest.fixture(scope="module")
+def parsed_results():
     parser = TestResultParser(path="./test/results_data")
-    assert parser.count() == 5
+    yield parser
+
+
+@pytest.mark.skip
+def test_dictionary(parsed_results):
+    dict, error = parsed_results.get_dictionary()
+    assert error == 0
+
+
+def test_number_of_files(parsed_results):
+    assert parsed_results.count() == 5
