@@ -15,4 +15,4 @@ def test_dictionary(parsed_results):
 
 
 def test_number_of_files(parsed_results):
-    assert parsed_results.count() == 5
+    assert parsed_results.count() == 2
