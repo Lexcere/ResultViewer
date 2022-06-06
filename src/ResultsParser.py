@@ -72,3 +72,44 @@ class TestResultParser:
 
     def count(self):
         return len(self.dizionario)
+
+    def metrics(self):
+        metrics = {}
+        missing_incident_number_for_nok = 0
+        missing_comment_for_nok = 0
+        missing_comment_for_not_tested = 0
+        total_tc = 0
+        _pass = 0
+        fail = 0
+        skip = 0
+        manual_tc = 0
+        other = 0
+        defect_counter = []
+        dates = []
+        for i in self.dizionario:
+            total_tc += 1
+
+            if self.dizionario[i]["GENERIC"]["result"] == "OK":
+                _pass += 1
+            elif self.dizionario[i]["GENERIC"]["result"] == "NOT OK":
+                fail += 1
+            elif self.dizionario[i]["GENERIC"]["result"] == "NOT TESTED":
+                skip += 1
+            else:
+                other += 1
+
+        metrics["total"] = total_tc
+        metrics["pass"] = _pass
+        metrics["fail"] = fail
+        metrics["skip"] = skip
+        metrics["other"] = other
+        return metrics
+
+    def is_checksum_valid(self):
+        checksum_list = []
+        for i in self.dizionario:
+            checksum_list.append(self.dizionario[i]["ENVIRONMENT"]["checksum calibration and application"])
+
+        if len(set(checksum_list)) > 1:
+            return list(set(checksum_list))
+        return 0
