@@ -1,7 +1,7 @@
 import glob
 import scandir
 from threading import Thread
-import configparser as ConfigParser  # keep compytibility with python 2.7
+import configparser
 
 
 class TestResultParser:
@@ -27,7 +27,6 @@ class TestResultParser:
         # keep the first "n" files
         if limit_number_of_file != -1:
             list_of_f = list_of_f[:limit_number_of_file]
-
 
         thrds = []
         i = 1
@@ -59,7 +58,7 @@ class TestResultParser:
 
     def reader(self, f, i):
         try:
-            parser = ConfigParser.ConfigParser()
+            parser = configparser.ConfigParser()
             parser.read(f)
             self.dizionario[i] = parser._sections
             self.dizionario[i]["GENERIC"]["path"] = f
