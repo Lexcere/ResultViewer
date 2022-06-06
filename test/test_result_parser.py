@@ -27,3 +27,7 @@ def test_metrics_pass(parsed_results):
 
 def test_metrics_skip(parsed_results):
     assert parsed_results.metrics()["skip"] == 1
+
+
+def test_checksum_valid(parsed_results):
+    assert parsed_results.is_checksum_valid() == 0
