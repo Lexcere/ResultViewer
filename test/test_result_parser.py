@@ -4,7 +4,7 @@ from src.ResultsParser import TestResultParser
 
 @pytest.fixture(scope="module")
 def parsed_results():
-    parser = TestResultParser(path="./test/results_data")
+    parser = TestResultParser(folder_path="./test/results_data")
     yield parser
 
 

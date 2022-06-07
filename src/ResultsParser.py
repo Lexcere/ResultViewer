@@ -5,10 +5,10 @@ import configparser
 
 
 class TestResultParser:
-    def __init__(self, path, limit_number_of_file=-1, recursive=False):
+    def __init__(self, folder_path, limit_number_of_file=-1, recursive=False):
         self.dizionario = {}
         self.errors = []
-        PATH = path
+        PATH = folder_path
 
         # read all file in folder and create a list
         list_of_f = []
