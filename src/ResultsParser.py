@@ -10,7 +10,7 @@ class TestResultParser:
         self.errors = []
         PATH = folder_path
 
-        # read all file in folder and create a list
+        # collect all files in folder and create a list
         list_of_f = []
         if not recursive:
             for f in glob.glob(PATH + "/*.txt"):
