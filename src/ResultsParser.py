@@ -8,30 +8,15 @@ class TestResultParser:
     def __init__(self, folder_path, limit_number_of_file=-1, recursive=False):
         self.dizionario = {}
         self.errors = []
-        PATH = folder_path
 
-        # collect all files in folder and create a list
-        list_of_f = []
-        if not recursive:
-            for f in glob.glob(PATH + "/*.txt"):
-                list_of_f.append(f)
-        elif recursive:
-            for root, dirs, files in scandir.walk(PATH):
-                for f in files:
-                    if f.endswith(".txt"):
-                        list_of_f.append(root + "\\" + f)
+        list_of_f = self._collect(folder_path, limit_number_of_file, recursive)
+        self.parse(list_of_f=list_of_f)
 
-        # sort the list from the newer to older
-        list_of_f.sort(reverse=True)
-
-        # keep the first "n" files
-        if limit_number_of_file != -1:
-            list_of_f = list_of_f[:limit_number_of_file]
-
+    def parse(self, list_of_f=None):
         thrds = []
         i = 1
         for f in list_of_f:
-            t = Thread(target=self.reader, args=(f, i))
+            t = Thread(target=self._read, args=(f, i))
             thrds.append(t)
             i += 1
             # each 50 files, execute the threads
@@ -56,11 +41,36 @@ class TestResultParser:
             # clean up the list of threads
             del thrds[:]
 
-    def reader(self, f, i):
+    @staticmethod
+    def _collect(folder_path, limit_number_of_file=-1, recursive=False):
+        """
+        collect all files in folder and create a list
+        :return: List of files path
+        """
+        list_of_f = []
+        if not recursive:
+            for f in glob.glob(folder_path + "/*.txt"):
+                list_of_f.append(f)
+        elif recursive:
+            for root, dirs, files in scandir.walk(folder_path):
+                for f in files:
+                    if f.endswith(".txt"):
+                        list_of_f.append(root + "\\" + f)
+
+        # sort the list from the newer to older
+        list_of_f.sort(reverse=True)
+
+        # keep the first "n" files
+        if limit_number_of_file != -1:
+            list_of_f = list_of_f[:limit_number_of_file]
+
+        return list_of_f
+
+    def _read(self, f, i):
         try:
-            parser = configparser.ConfigParser()
-            parser.read(f)
-            self.dizionario[i] = parser._sections
+            parser_ = configparser.ConfigParser()
+            parser_.read(f)
+            self.dizionario[i] = parser_._sections
             self.dizionario[i]["GENERIC"]["path"] = f
         except Exception:
             self.errors.append(f)
