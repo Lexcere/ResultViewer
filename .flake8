@@ -3,3 +3,5 @@ max-line-length = 160
 exclude = .idea,
           venv
 count=True
+format=html
+htmldir=report-flake
