@@ -112,3 +112,15 @@ class TestResultParser:
         if len(set(checksum_list)) > 1:
             return list(set(checksum_list))
         return 0
+
+    @staticmethod
+    def open(self):
+        raise NotImplementedError()
+
+    @staticmethod
+    def delete(self):
+        raise NotImplementedError()
+
+    @staticmethod
+    def replace(self):
+        raise NotImplementedError()
