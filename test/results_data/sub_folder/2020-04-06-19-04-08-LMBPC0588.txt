@@ -1,0 +1,223 @@
+[GENERIC]
+test execution date = 06/04/2020
+test execution time = 19.04.08
+test duration = 
+test session id = 20200406-165912-LMBPC0588
+test case number = TestCase_AC_46_1002_RAMD_StarterAcceptanceTest01001_StartByDigIn
+test case version = 
+test stage = 
+test case description = Starter Activation with Engine Speed
+result = OK
+incident number = 
+tester note = 
+comment = 
+requirement cover = 
+	REQ_AC_72_038_Bosch Starters_00009  v06
+	LMBSWPLATFORM-1064
+	LMBSWPLATFORM-1069
+	LMBRAMD-23
+measurement file/s = 2020_04_06_19_04_39_TestCase_AC_46_1002_RAMD_StarterAcceptanceTest01001_StartByDigIn.MDF
+	2020_04_06_19_04_52_TestCase_AC_46_1002_RAMD_StarterAcceptanceTest01001_StartByDigIn.MDF
+	2020_04_06_19_05_03_TestCase_AC_46_1002_RAMD_StarterAcceptanceTest01001_StartByDigIn.MDF
+
+[ENVIRONMENT]
+pc name = LMBPC0588
+user name = lmbhil0
+tester name = 
+sw number = 212000
+sw revision = 254542
+operating system = 
+tools folder revision number = 17183 -M
+simulator = LMB_HIL1
+hil model = C:\CAD\Workspace\HILSimulator\dSpace_FS1\ECU2HD\Icebreaker\ControlDeskEnvironment\Experiment\Icebreaker\D9612_SST\D9612_SST.CDE
+hil model revision number = 17898 -M
+hil last calibration date = NA
+harness id = LMB_AC_55_16
+a2l master = C:\CAD\Workspace\Platform\Delivery_TC\__ECU2HDD12\01_Beta_Software\ECU2HDD12_D1MC_212000_254542_6E0046_BETA\ECU2HDD12_D1MC_212000_254542_6E0046_BETA.a2l
+a2l slave = 
+cdd = C:\CAD\Workspace\Platform\Delivery_TC\__ECU2HDD12\01_Beta_Software\ECU2HDD12_D1MC_212000_254542_6E0046_BETA\ECU2HDD12_D1MC_212000_254542_6E0046_BETA.cdd
+can1 protocol = J1939 ICEBREAKER
+can2 protocol = Tier 0
+engine variant = KD27V12-6CFS
+customer = 
+bootloader = OOTM_xxMC_210500   OOTL_xxMC_210810   /A
+checksum calibration = 740943231
+checksum application = 1407690162
+checksum calibration and application = 2150743858
+ecu id = 10883719
+ecu spf_idx = 1
+ecu serial_number = 1002128
+room temperature = 20-25 degree
+room location = HIL laboratory 7.2.xx
+
+[ACTUAL RESULTS]
+log = 					*** List of acquisition table : ECU : MASTER, Raster : 10ms ***
+	19:04:08.582			------------------------------------------------------------------
+	19:04:08.587			BatteryKey set to : 1
+	19:04:10.587			Wait : 2.000 seconds
+	19:04:10.594			IgnitionKey set to : 1
+	19:04:12.594			Wait : 2.000 seconds
+	19:04:13.135			------------------------------------------------------------------
+	19:04:13.135			Wait for ECU to wake up
+	19:04:13.135			Waiting for event: 'PCV1Current > 0.1'
+	19:04:13.137			Waiting for event: 'VCV1Current > 0.1'
+	19:04:13.240			Wait : 0.100 seconds
+	19:04:13.822			Get MASTER ECU parameter : EngStrt_TiAftStVldForScbDetnOfCan1_C = 5.0
+	19:04:14.374			Get MASTER ECU parameter : EngStrt_TiAftStVldForScbDetnDigInp1_C = 5.0
+	19:04:25.374			Wait : 11.000 seconds
+	19:04:25.374			------------------------------------------------------------------
+	19:04:25.374			Set a Start Request
+	19:04:25.383			Starter1RequestSwitch set to : 1
+	19:04:25.383			------------------------------------------------------------------
+	19:04:25.383			Check Engine is running
+	19:04:25.383			Waiting for event: 'CrankshaftSpeed > 400'
+	19:04:25.386			------------------------------------------------------------------
+	19:04:25.386			Reset Start Request
+	19:04:25.410			Starter1RequestSwitch set to : 0
+	19:04:25.410			------------------------------------------------------------------
+	19:04:25.412			CANape disconnected
+	19:04:25.417			IgnitionKey set to : 0
+	19:04:25.417			Waiting for event: 'CrankshaftSpeed == 0'
+	19:04:29.684			BatteryKey set to : 0
+	19:04:30.684			Wait : 1.000 seconds
+	19:04:31.684			Wait : 1.000 seconds
+	19:04:31.684			*********************************************************************
+	19:04:31.684			Check that it is possible to start engine only when it is at standstill
+	19:04:31.684			*********************************************************************
+						*** List of acquisition table : ECU : MASTER, Raster : 10ms ***
+						InpSpd_EngSpdVal
+						EngStrtr_EngSpdValSeld
+						OutStrtr1_OutFlgOfStrtr1
+	19:04:35.034			*********************************************************************
+	19:04:35.034			Try to activate starter when engine is turning
+	19:04:35.034			*********************************************************************
+	19:04:35.034			------------------------------------------------------------------
+	19:04:35.034			Engine Speed : 18rpm - Starter Source : Starter1RequestSwitch
+	19:04:35.034			------------------------------------------------------------------
+	19:04:35.037			BatteryKey set to : 1
+	19:04:37.037			Wait : 2.000 seconds
+	19:04:37.042			IgnitionKey set to : 1
+	19:04:39.042			Wait : 2.000 seconds
+	19:04:40.487			CANape connected
+	19:04:40.487			------------------------------------------------------------------
+	19:04:40.487			Wait for ECU to wake up
+	19:04:40.487			Waiting for event: 'PCV1Current > 0.1'
+	19:04:40.489			Waiting for event: 'VCV1Current > 0.1'
+	19:04:40.604			Wait : 0.100 seconds
+	19:04:40.604			------------------------------------------------------------------
+	19:04:40.604			Deactivate injection in order to not start engine
+	19:04:40.682			ECU MASTER: Set calibration - FuCutOff_TestSubOfReqDeactvnOfInj_C set to 1
+	19:04:40.755			ECU MASTER: Set calibration - FuCutOff_TestOfReqDeactvnOfInj_C set to 1
+	19:04:41.755			Wait : 1.000 seconds
+	19:04:41.755			------------------------------------------------------------------
+	19:04:41.755			Simulate Engine Speed : 18rpm
+	19:04:41.765			Engine speed reference set to : 18 rpm
+	19:04:41.765			------------------------------------------------------------------
+	19:04:41.765			Wait for ECU internal Speed stabilization in range +/-20%
+	19:04:41.765			Waiting for event: 'InpSpd_EngSpdVal > 15'
+	19:04:45.604			Waiting for event: 'InpSpd_EngSpdVal < 21'
+	19:04:45.616			------------------------------------------------------------------
+	19:04:45.616			Set a Start Request
+	19:04:45.648			Starter1RequestSwitch set to : 1
+	19:04:45.648			------------------------------------------------------------------
+	19:04:45.648			Check non activation of Starter
+	19:04:46.024			------------------------------------------------------------------
+	19:04:46.024			Reset Start Request
+	19:04:46.028			Starter1RequestSwitch set to : 0
+	19:04:46.032			Engine speed reference set to : 0 rpm
+	19:04:46.032			------------------------------------------------------------------
+	19:04:46.361			CANape disconnected
+	19:04:46.364			IgnitionKey set to : 0
+	19:04:46.364			Waiting for event: 'CrankshaftSpeed == 0'
+	19:04:46.405			BatteryKey set to : 0
+	19:04:47.405			Wait : 1.000 seconds
+	19:04:48.405			Wait : 1.000 seconds
+	19:04:48.421			------------------------------------------------------------------
+	19:04:48.421			Engine Speed : 30rpm - Starter Source : Starter1RequestSwitch
+	19:04:48.421			------------------------------------------------------------------
+	19:04:48.427			BatteryKey set to : 1
+	19:04:50.427			Wait : 2.000 seconds
+	19:04:50.432			IgnitionKey set to : 1
+	19:04:52.432			Wait : 2.000 seconds
+	19:04:53.944			CANape connected
+	19:04:53.944			------------------------------------------------------------------
+	19:04:53.944			Wait for ECU to wake up
+	19:04:53.944			Waiting for event: 'PCV1Current > 0.1'
+	19:04:53.947			Waiting for event: 'VCV1Current > 0.1'
+	19:04:54.049			Wait : 0.100 seconds
+	19:04:54.049			------------------------------------------------------------------
+	19:04:54.049			Deactivate injection in order to not start engine
+	19:04:54.135			ECU MASTER: Set calibration - FuCutOff_TestSubOfReqDeactvnOfInj_C set to 1
+	19:04:54.220			ECU MASTER: Set calibration - FuCutOff_TestOfReqDeactvnOfInj_C set to 1
+	19:04:55.220			Wait : 1.000 seconds
+	19:04:55.220			------------------------------------------------------------------
+	19:04:55.220			Simulate Engine Speed : 30rpm
+	19:04:55.228			Engine speed reference set to : 30 rpm
+	19:04:55.228			------------------------------------------------------------------
+	19:04:55.229			Wait for ECU internal Speed stabilization in range +/-20%
+	19:04:55.229			Waiting for event: 'InpSpd_EngSpdVal > 24'
+	19:04:55.775			Waiting for event: 'InpSpd_EngSpdVal < 36'
+	19:04:55.787			------------------------------------------------------------------
+	19:04:55.787			Set a Start Request
+	19:04:55.805			Starter1RequestSwitch set to : 1
+	19:04:55.805			------------------------------------------------------------------
+	19:04:55.805			Check non activation of Starter
+	19:04:56.262			------------------------------------------------------------------
+	19:04:56.262			Reset Start Request
+	19:04:56.266			Starter1RequestSwitch set to : 0
+	19:04:56.270			Engine speed reference set to : 0 rpm
+	19:04:56.271			------------------------------------------------------------------
+	19:04:56.526			CANape disconnected
+	19:04:56.528			IgnitionKey set to : 0
+	19:04:56.528			Waiting for event: 'CrankshaftSpeed == 0'
+	19:04:56.778			BatteryKey set to : 0
+	19:04:57.778			Wait : 1.000 seconds
+	19:04:58.778			Wait : 1.000 seconds
+	19:04:58.786			------------------------------------------------------------------
+	19:04:58.786			Engine Speed : 50rpm - Starter Source : Starter1RequestSwitch
+	19:04:58.786			------------------------------------------------------------------
+	19:04:58.791			BatteryKey set to : 1
+	19:05:00.791			Wait : 2.000 seconds
+	19:05:00.796			IgnitionKey set to : 1
+	19:05:02.796			Wait : 2.000 seconds
+	19:05:04.253			CANape connected
+	19:05:04.253			------------------------------------------------------------------
+	19:05:04.253			Wait for ECU to wake up
+	19:05:04.253			Waiting for event: 'PCV1Current > 0.1'
+	19:05:04.255			Waiting for event: 'VCV1Current > 0.1'
+	19:05:04.358			Wait : 0.100 seconds
+	19:05:04.358			------------------------------------------------------------------
+	19:05:04.358			Deactivate injection in order to not start engine
+	19:05:04.443			ECU MASTER: Set calibration - FuCutOff_TestSubOfReqDeactvnOfInj_C set to 1
+	19:05:04.525			ECU MASTER: Set calibration - FuCutOff_TestOfReqDeactvnOfInj_C set to 1
+	19:05:05.525			Wait : 1.000 seconds
+	19:05:05.525			------------------------------------------------------------------
+	19:05:05.525			Simulate Engine Speed : 50rpm
+	19:05:05.534			Engine speed reference set to : 50 rpm
+	19:05:05.534			------------------------------------------------------------------
+	19:05:05.534			Wait for ECU internal Speed stabilization in range +/-20%
+	19:05:05.534			Waiting for event: 'InpSpd_EngSpdVal > 40'
+	19:05:06.057			Waiting for event: 'InpSpd_EngSpdVal < 60'
+	19:05:06.069			------------------------------------------------------------------
+	19:05:06.069			Set a Start Request
+	19:05:06.080			Starter1RequestSwitch set to : 1
+	19:05:06.080			------------------------------------------------------------------
+	19:05:06.080			Check non activation of Starter
+	19:05:06.632			------------------------------------------------------------------
+	19:05:06.632			Reset Start Request
+	19:05:06.637			Starter1RequestSwitch set to : 0
+	19:05:06.643			Engine speed reference set to : 0 rpm
+	19:05:06.643			------------------------------------------------------------------
+	19:05:06.921			CANape disconnected
+	19:05:06.924			IgnitionKey set to : 0
+	19:05:06.924			Waiting for event: 'CrankshaftSpeed == 0'
+	19:05:07.300			BatteryKey set to : 0
+	19:05:08.300			Wait : 1.000 seconds
+	19:05:09.300			Wait : 1.000 seconds
+	19:05:09.315			** Dynamometer mode disabled **
+	
+	19:05:09.317			STATUS : OK
+	
+	
+	
+

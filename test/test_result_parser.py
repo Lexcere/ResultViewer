@@ -14,8 +14,16 @@ def test_dictionary(parsed_results):
     assert error == 0
 
 
-def test_number_of_files(parsed_results):
-    assert parsed_results.count() == 2
+@pytest.mark.parametrize("recursive, expected_result", [
+    (False, 2),
+    (True, 4)
+])
+def test_number_of_files(parsed_results,
+                         recursive,
+                         expected_result):
+    parser = TestResultParser(folder_path="./test/results_data", recursive=recursive)
+    assert parser.count() == expected_result
+
 
 def test_metrics_total(parsed_results):
     assert parsed_results.metrics()["total"] == 2
