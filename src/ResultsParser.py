@@ -15,13 +15,11 @@ class TestResultParser:
 
     def parse(self, list_of_f=None):
         thrds = []
-        i = 1
-        for f in list_of_f:
-            t = Thread(target=self._read, args=(f, i))
+        for idx, f in enumerate(list_of_f, start=1):
+            t = Thread(target=self._read, args=(f, idx))
             thrds.append(t)
-            i += 1
             # each 50 files, execute the threads
-            if i % 50 == 0:
+            if idx % 50 == 0:
                 # start the threads
                 for t in thrds:
                     t.start()
