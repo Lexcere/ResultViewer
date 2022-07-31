@@ -1,8 +1,9 @@
+=====
 Usage
 =====
 
 Read
-----
+====
 
 Read TestResult from the Reading folder is possible via the following menu/icon:
 
@@ -28,7 +29,7 @@ Menu File/Reset folder
   :alt: Alternative text
 
 View
-----
+====
 
 To view the TXT or HTML version of TestResult/s selected. Right click on the list of result, click the
 preferred option from the context menu.
@@ -44,7 +45,7 @@ From the context menu is also possible to:
 - Delete selected TestResult.
 
 Filtering
----------
+=========
 
 Is possible to filter the visualized result using the toolbar filter widget.
 Select the column you want to filter, type the string to filter and click [ENTER] to refresh the list.
@@ -59,7 +60,8 @@ Is possible to check/uncheck the case sensitive via menu **Filter/Case sensitive
 From the Filter menu is possible to set quick filters.
 
 Save
-----
+====
+
 
 Report
-------
+======
