@@ -2,6 +2,7 @@ import glob
 import scandir
 from threading import Thread
 import configparser
+import traceback
 
 
 class TestResultParser:
@@ -72,9 +73,9 @@ class TestResultParser:
             parser_.read(f)
             self.dizionario[i] = parser_._sections
             self.dizionario[i]["GENERIC"]["path"] = f
-        except Exception:
+        except Exception as e:
             self.errors.append(f)
-            print("ERROR: error raised with TC: " + f)
+            print(f"ERROR: error raised with TC: {f}\n{traceback.format_exc()}\n")
 
     def get_dictionary(self):
         return self.dizionario, self.errors
