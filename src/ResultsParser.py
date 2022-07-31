@@ -67,12 +67,13 @@ class TestResultParser:
 
         return list_of_f
 
-    def _read(self, f, i):
+    def _read(self, f, idx):
         try:
             parser_ = configparser.ConfigParser()
             parser_.read(f)
-            self.dizionario[i] = parser_._sections
+            self.dizionario[idx] = parser_._sections
             self.dizionario[i]["GENERIC"]["path"] = f
+            self.dizionario[idx]["GENERIC"]["path"] = f
         except Exception as e:
             self.errors.append(f)
             print(f"ERROR: error raised with TC: {f}\n{traceback.format_exc()}\n")
