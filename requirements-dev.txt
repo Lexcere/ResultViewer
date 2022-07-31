@@ -3,3 +3,7 @@ flake8
 flake8-html
 pytest
 pytest-html
+
+# doc
+sphinx
+furo
