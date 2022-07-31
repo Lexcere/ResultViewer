@@ -62,6 +62,15 @@ From the Filter menu is possible to set quick filters.
 Save
 ====
 
+To save the selected TestResult to the Saving folder use the following command:
+
+.. image:: images/Save.png
+  :alt: Alternative text
+
+Menu: File/Save
+Context menu: Save
+
+If TestResult is linked with one or more MDF file/s, the MDF/s is/are saved as well in the saving folder.
 
 Report
 ======
