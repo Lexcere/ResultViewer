@@ -46,6 +46,18 @@ From the context menu is also possible to:
 Filtering
 ---------
 
+Is possible to filter the visualized result using the toolbar filter widget.
+Select the column you want to filter, type the string to filter and click [ENTER] to refresh the list.
+
+.. image:: images/filter_toolbar.png
+  :alt: Alternative text
+
+Reset filter is possible via menu **Filter/Reset all**.
+
+Is possible to check/uncheck the case sensitive via menu **Filter/Case sensitive**.
+
+From the Filter menu is possible to set quick filters.
+
 Save
 ----
 
