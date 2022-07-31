@@ -30,6 +30,19 @@ Menu File/Reset folder
 View
 ----
 
+To view the TXT or HTML version of TestResult/s selected. Right click on the list of result, click the
+preferred option from the context menu.
+
+.. image:: images/contextMenu.png
+  :alt: Alternative text
+
+From the context menu is also possible to:
+
+- Replace in one or multiple TestResult, one specific field with a choosen value.
+- Open the folder of selected TestResult.
+- Save selected TestResult.
+- Delete selected TestResult.
+
 Filtering
 ---------
 
