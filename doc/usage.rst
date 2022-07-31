@@ -74,3 +74,100 @@ If TestResult is linked with one or more MDF file/s, the MDF/s is/are saved as w
 
 Report
 ======
+
+Read Test Result
+----------------
+
+The report is generated using the test result displayed on the ResultViewer list.
+
+- Update SVN Folder containing test result
+- Read folder (Menu File/Read)
+    .. ATTENTION::
+        Request at least 1000 test cases and check that the number of test is below 1000
+- Check there are no error messages in the dedicate box
+- Correct all problems
+- Commit SVN Folder after modifications
+
+Create Excel/PDF
+----------------
+
+Summary file
+~~~~~~~~~~~~
+
+Open the template of Test Report Summary
+
+.. image:: images/OpenTestReport.png
+  :alt: Alternative text
+
+Fill the page with correct information
+Save the document to your PC. Change file name to match your Validation
+Example : LMB AC 48 XXXX TestSummaryReport 24.13.10 236901 BETA PEGASUS D956.xlsx
+
+Generate result
+~~~~~~~~~~~~~~~
+
+Start the generation process via menu Report/Generate (Excel).
+
+.. NOTE::
+    Overview, Traceability, Incident checkboxes from Report menu must be activated.
+
+Open the Summary excel file previously created.
+Move the recently created sheets (Result, Traceability, Incident) inside the Validation Report at the end of it.
+
+Define ”Print Area”
+
+- Select column A to I
+- Go in Page Layout Menu and Select Print Area
+- Click Set Print Area
+
+Define ”Page Break Preview” to print on one page
+
+- Go in View Menu and Select Page Break Preview
+- Slide dotted line to the end of clolumn I
+
+If all test are green, Approve the report, else don’t approve it.
+
+Fill in the AC22 Comment part by highlighting each topic on which deviations are observed and by re-
+ferring the ”Result” Sheet.
+
+Review
+~~~~~~
+
+Send report by mail for review and to fill dedicated field to Malnoy + Lescot + Rimkus + CSM (if exist)
+
+Wait
+~~~~
+
+Wait for request to start workflow (from AC1 or CSM)
+
+Save as PDF
+~~~~~~~~~~~
+
+Open the Test report.
+Correct page setup
+
+- Pages ResultAssessment: choose function file/print/Fit All columns on One Page
+
+Export document as PDF
+
+- ALL THE PAGES OF THE EXCEL REPORT MUST BE IN THE PDF
+
+Create HTML
+-----------
+
+Display the Test Result of which you want to generate the report.
+Start the generation process via menu Report/Generate (HTML). Report is generated in same folder
+choose to display the Test Result.
+
+Add on
+~~~~~~
+
+Add on files can be used to add content to the final report without worrying about style.
+
+.. ATTENTION::
+    Content of Add on will be automatically added to the report only if they are present in the same
+    folder where the report is generated.
+
+Following table will give a short description of each add on:
+Info | Add to the Summary page the information about the maturity and project of the SW under test. | AC22
+Deviation | Allow CSM + AC to give a status for each deviation raised during the validation of SW. | CSM + AC
