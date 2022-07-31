@@ -4,6 +4,7 @@ venv
 .idea
 .vscode
 report-*
+doc/_build
 
 # Extension
 *.pyw
