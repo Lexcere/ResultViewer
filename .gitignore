@@ -1,10 +1,17 @@
+# IDE
+.idea
+.vscode
+
+# Distribution / packaging
+*.egg-info/
+
+# Documentation
+doc/_build
+
 # folder
 build
 venv
-.idea
-.vscode
 report-*
-doc/_build
 
 # Extension
 *.pyw
