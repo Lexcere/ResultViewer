@@ -15,8 +15,8 @@ def test_dictionary(parsed_results):
 
 
 @pytest.mark.parametrize("recursive, expected_result", [
-    (False, 2),
-    (True, 4)
+    pytest.param(False, 2, id="not recursive"),
+    pytest.param(True, 4, id="recursive")
 ])
 def test_number_of_files(parsed_results,
                          recursive,
