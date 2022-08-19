@@ -23,6 +23,7 @@ def main():
     parser.add_argument("-r", "--recursive", help="select to search recursively inside folder or not", action="store_true")
     parser.add_argument("-m", "--metrics", help="print metrics", action="store_true")
     parser.add_argument("-c", "--count", help="print metrics", action="store_true")
+    parser.add_argument("-k", "--checksum", help="return 0 if checksum is valid", action="store_true")
     args = parser.parse_args()
 
     if len(sys.argv) == 1:
@@ -38,6 +39,8 @@ def main():
             print(f"{Bcolors.OKCYAN}Other: {parser.metrics()['other']}{Bcolors.ENDC}")
         elif args.count:
             print(parser.count())
+        elif args.checksum:
+            print(parser.is_checksum_valid())
 
 
 if __name__ == "__main__":
