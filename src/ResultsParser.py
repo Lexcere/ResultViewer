@@ -3,6 +3,7 @@ import scandir
 from threading import Thread
 import configparser
 import traceback
+import os
 
 
 class TestResultParser:
@@ -54,7 +55,8 @@ class TestResultParser:
             for root, dirs, files in scandir.walk(folder_path):
                 for f in files:
                     if f.endswith(".txt"):
-                        list_of_f.append(root + "\\" + f)
+                        file_path = os.path.join(root, f)
+                        list_of_f.append(file_path)
 
         # sort the list from the newer to older
         list_of_f.sort(reverse=True)
