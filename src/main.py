@@ -21,6 +21,8 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('dir', nargs='?', default=os.getcwd())
     parser.add_argument("-r", "--recursive", help="select to search recursively inside folder or not", action="store_true")
+    parser.add_argument("-m", "--metrics", help="print metrics", action="store_true")
+    parser.add_argument("-c", "--count", help="print metrics", action="store_true")
     args = parser.parse_args()
 
     if len(sys.argv) == 1:
