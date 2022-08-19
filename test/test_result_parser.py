@@ -18,8 +18,7 @@ def test_dictionary(parsed_results):
     pytest.param(False, 2, id="not recursive"),
     pytest.param(True, 4, id="recursive")
 ])
-def test_number_of_files(parsed_results,
-                         recursive,
+def test_number_of_files(recursive,
                          expected_result):
     parser = TestResultParser(folder_path="./test/results_data", recursive=recursive)
     assert parser.count() == expected_result
