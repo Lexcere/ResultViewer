@@ -1,5 +1,6 @@
 numpy
 PyQt6
+PyQt5
 openpyxl
 scandir
 ConfigParser
