@@ -31,7 +31,7 @@ def main():
     elif args.dir:
         parser = ResultsParser.TestResultParser(folder_path=args.dir, recursive=args.recursive)
         if args.metrics:
-            print(f"{Bcolors.BOLD}Total: {parser.metrics()['total']}{Bcolors.ENDC}")
+            print(f"{Bcolors.BOLD}{Bcolors.UNDERLINE}Total: {parser.metrics()['total']}{Bcolors.ENDC}")
             print(f"{Bcolors.OKGREEN}Pass: {parser.metrics()['pass']}{Bcolors.ENDC}")
             print(f"{Bcolors.FAIL}Fail: {parser.metrics()['fail']}{Bcolors.ENDC}")
             print(f"{Bcolors.WARNING}Skip: {parser.metrics()['skip']}{Bcolors.ENDC}")
