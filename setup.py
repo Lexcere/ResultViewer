@@ -15,10 +15,10 @@ setuptools.setup(
     python_requires=">=3.6.0",
     url="https://github.com/Lexcere/ResultViewer",
     install_requires=install_requires,
-    package_dir={"result_viewer": "result_viewer"},
+    package_dir={"result_viewer": "src"},
     packages=["result_viewer"],
     entry_points={
-        "console_scripts": ["result-viewer = result_viewer.main:main"]
+        "console_scripts": ["result-viewer = src.main:main"]
     },
     include_package_data=True,
 )
