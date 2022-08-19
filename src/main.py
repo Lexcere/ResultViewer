@@ -28,9 +28,16 @@ def main():
     if len(sys.argv) == 1:
         ui.main()
 
-    else:
+    elif args.dir:
         parser = ResultsParser.TestResultParser(folder_path=args.dir, recursive=args.recursive)
-        print(parser.metrics())
+        if args.metrics:
+            print(f"{Bcolors.BOLD}Total: {parser.metrics()['total']}{Bcolors.ENDC}")
+            print(f"{Bcolors.OKGREEN}Pass: {parser.metrics()['pass']}{Bcolors.ENDC}")
+            print(f"{Bcolors.FAIL}Fail: {parser.metrics()['fail']}{Bcolors.ENDC}")
+            print(f"{Bcolors.WARNING}Skip: {parser.metrics()['skip']}{Bcolors.ENDC}")
+            print(f"{Bcolors.OKCYAN}Other: {parser.metrics()['other']}{Bcolors.ENDC}")
+        elif args.count:
+            print(parser.count())
 
 
 if __name__ == "__main__":
