@@ -1,6 +1,6 @@
 import argparse
-import ResultsParser
-import ui
+from . import ResultsParser
+from . import ui
 import sys
 import os
 
