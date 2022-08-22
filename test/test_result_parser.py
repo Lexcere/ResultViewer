@@ -40,9 +40,15 @@ def test_checksum_valid(parsed_results):
     assert parsed_results.is_checksum_valid() == 0
 
 
-class TestMatchFileName:
-    def test_correct_file(self):
-        assert match_file_name("2020-04-06-19-04-08-LMBPC0588.txt")
-
-    def test_incorrect_extension(self):
-        assert not match_file_name("2020-04-06-19-04-08-LMBPC0588.tx")
+@pytest.mark.parametrize("filename, fail", [
+    ["2020-04-06-19-04-08-LMBPC0588.txt", False],
+    ["2020-04-06-19-04-08-LMBPC0588.tx", True],
+    ["020-04-06-19-04-08-LMBPC0588.tx", True],
+    ["wrong_name_good_extension.txt", True],
+    ["wrong_name_wrong_extension.tx", True],
+])
+def test_match_file_name(filename, fail):
+    if fail:
+        assert not match_file_name(filename)
+    else:
+        assert match_file_name(filename)
