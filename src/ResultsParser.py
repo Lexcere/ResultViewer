@@ -8,7 +8,9 @@ import re
 
 
 def match_file_name(_string=""):
-    return re.search(".txt$", _string)
+    if re.search("txt$", _string) and re.search(r"\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-", _string):
+        return True
+    return False
 
 
 class TestResultParser:
