@@ -4,6 +4,11 @@ from threading import Thread
 import configparser
 import traceback
 import os
+import re
+
+
+def match_file_name(_string=""):
+    return re.search(".txt$", _string)
 
 
 class TestResultParser:
@@ -49,12 +54,13 @@ class TestResultParser:
         """
         list_of_f = []
         if not recursive:
-            for f in glob.glob(folder_path + "/*.txt"):
-                list_of_f.append(f)
+            for f in glob.glob(os.path.join(folder_path, "*")):
+                if match_file_name(f):
+                    list_of_f.append(f)
         elif recursive:
             for root, dirs, files in scandir.walk(folder_path):
                 for f in files:
-                    if f.endswith(".txt"):
+                    if match_file_name(f):
                         file_path = os.path.join(root, f)
                         list_of_f.append(file_path)
 

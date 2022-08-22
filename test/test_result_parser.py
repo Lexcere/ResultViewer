@@ -1,5 +1,5 @@
 import pytest
-from src.ResultsParser import TestResultParser
+from src.ResultsParser import TestResultParser, match_file_name
 
 
 @pytest.fixture(scope="module")
@@ -38,3 +38,11 @@ def test_metrics_skip(parsed_results):
 
 def test_checksum_valid(parsed_results):
     assert parsed_results.is_checksum_valid() == 0
+
+
+class TestMatchFileName:
+    def test_correct_file(self):
+        assert match_file_name("2020-04-06-19-04-08-LMBPC0588.txt")
+
+    def test_incorrect_extension(self):
+        assert not match_file_name("2020-04-06-19-04-08-LMBPC0588.tx")
