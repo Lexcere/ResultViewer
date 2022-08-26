@@ -133,6 +133,9 @@ class TestResultParser:
             return list(set(checksum_list))
         return 0
 
+    def get_files(self):
+        pass
+
     @staticmethod
     def open(self):
         raise NotImplementedError()
