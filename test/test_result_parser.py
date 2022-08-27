@@ -1,3 +1,5 @@
+import logging
+
 import pytest
 from src.ResultsParser import TestResultParser, match_file_name
 import os
@@ -44,6 +46,7 @@ def test_checksum_valid(parsed_results):
 def test_get_files():
     parser = TestResultParser(folder_path="./test/results_data", recursive=False)
     for _file in parser.get_files():
+        logging.info(_file)
         assert os.path.isfile(_file)
 
 
