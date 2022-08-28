@@ -133,6 +133,12 @@ class TestResultParser:
             return list(set(checksum_list))
         return 0
 
+    def get_files(self):
+        list_of_files_path = []
+        for idx in self.dizionario:
+            list_of_files_path.append(self.dizionario[idx]["GENERIC"]["path"])
+        return list_of_files_path
+
     @staticmethod
     def open(self):
         raise NotImplementedError()

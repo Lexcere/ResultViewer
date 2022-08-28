@@ -1,5 +1,8 @@
+import logging
+
 import pytest
 from src.ResultsParser import TestResultParser, match_file_name
+import os
 
 
 @pytest.fixture(scope="module")
@@ -38,6 +41,13 @@ def test_metrics_skip(parsed_results):
 
 def test_checksum_valid(parsed_results):
     assert parsed_results.is_checksum_valid() == 0
+
+
+def test_get_files():
+    parser = TestResultParser(folder_path="./test/results_data", recursive=False)
+    for _file in parser.get_files():
+        logging.info(_file)
+        assert os.path.isfile(_file)
 
 
 @pytest.mark.parametrize("filename, fail", [
