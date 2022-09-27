@@ -3,18 +3,9 @@ from . import ResultsParser
 from . import ui
 import sys
 import os
+import colorama
 
-
-class Bcolors:
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKCYAN = '\033[96m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
+colorama.init()  # this is necessary for window coloring
 
 
 def main():
@@ -35,11 +26,11 @@ def main():
         elif args.checksum:
             print(parser.is_checksum_valid())
         else:
-            print(f"{Bcolors.BOLD}{Bcolors.UNDERLINE}Total: {parser.metrics()['total']}{Bcolors.ENDC}")
-            print(f"{Bcolors.OKGREEN}Pass: {parser.metrics()['pass']}{Bcolors.ENDC}")
-            print(f"{Bcolors.FAIL}Fail: {parser.metrics()['fail']}{Bcolors.ENDC}")
-            print(f"{Bcolors.WARNING}Skip: {parser.metrics()['skip']}{Bcolors.ENDC}")
-            print(f"{Bcolors.OKCYAN}Other: {parser.metrics()['other']}{Bcolors.ENDC}")
+            print(f"Total: {parser.metrics()['total']}")
+            print(f"{colorama.Fore.GREEN}Pass: {parser.metrics()['pass']}")
+            print(f"{colorama.Fore.RED}Fail: {parser.metrics()['fail']}")
+            print(f"{colorama.Fore.YELLOW}Skip: {parser.metrics()['skip']}")
+            print(f"{colorama.Fore.BLUE}Other: {parser.metrics()['other']}")
 
 
 if __name__ == "__main__":
