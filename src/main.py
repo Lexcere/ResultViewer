@@ -3,8 +3,9 @@ from . import ResultsParser
 from . import ui
 import sys
 import os
+import colorama
 
-
+colorama.init()  # this is necessary for window coloring
 class Bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
