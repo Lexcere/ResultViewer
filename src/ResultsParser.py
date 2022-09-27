@@ -80,7 +80,6 @@ class TestResultParser:
             parser_ = configparser.ConfigParser()
             parser_.read(f)
             self.dizionario[idx] = parser_._sections
-            self.dizionario[i]["GENERIC"]["path"] = f
             self.dizionario[idx]["GENERIC"]["path"] = f
         except Exception as e:
             self.errors.append(f)
