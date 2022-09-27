@@ -9,7 +9,7 @@ import logging
 
 
 def match_file_name(_string=""):
-    if re.search("txt$", _string) and re.search(r"\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-", _string):
+    if re.search("txt$", _string) and re.search(r"\d\d\d\d[-_]\d\d[-_]\d\d[-_]\d\d[-_]\d\d[-_]\d\d[-_]", _string):
         return True
     return False
 
