@@ -26,11 +26,11 @@ def main():
         elif args.checksum:
             print(parser.is_checksum_valid())
         else:
-            print(f"{Bcolors.BOLD}{Bcolors.UNDERLINE}Total: {parser.metrics()['total']}{Bcolors.ENDC}")
-            print(f"{Bcolors.OKGREEN}Pass: {parser.metrics()['pass']}{Bcolors.ENDC}")
-            print(f"{Bcolors.FAIL}Fail: {parser.metrics()['fail']}{Bcolors.ENDC}")
-            print(f"{Bcolors.WARNING}Skip: {parser.metrics()['skip']}{Bcolors.ENDC}")
-            print(f"{Bcolors.OKCYAN}Other: {parser.metrics()['other']}{Bcolors.ENDC}")
+            print(f"Total: {parser.metrics()['total']}")
+            print(f"{colorama.Fore.GREEN}Pass: {parser.metrics()['pass']}")
+            print(f"{colorama.Fore.RED}Fail: {parser.metrics()['fail']}")
+            print(f"{colorama.Fore.YELLOW}Skip: {parser.metrics()['skip']}")
+            print(f"{colorama.Fore.BLUE}Other: {parser.metrics()['other']}")
 
 
 if __name__ == "__main__":
