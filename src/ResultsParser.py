@@ -5,10 +5,11 @@ import configparser
 import traceback
 import os
 import re
+import logging
 
 
 def match_file_name(_string=""):
-    if re.search("txt$", _string) and re.search(r"\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-", _string):
+    if re.search("txt$", _string) and re.search(r"\d\d\d\d[-_]\d\d[-_]\d\d[-_]\d\d[-_]\d\d[-_]\d\d[-_]", _string):
         return True
     return False
 
@@ -22,31 +23,8 @@ class TestResultParser:
         self.parse(list_of_f=list_of_f)
 
     def parse(self, list_of_f=None):
-        thrds = []
         for idx, f in enumerate(list_of_f, start=1):
-            t = Thread(target=self._read, args=(f, idx))
-            thrds.append(t)
-            # each 50 files, execute the threads
-            if idx % 50 == 0:
-                # start the threads
-                for t in thrds:
-                    t.start()
-                # wait until all threads are finished
-                for t in thrds:
-                    t.join()
-                # clean up the list of threads
-                del thrds[:]
-
-        # check if there are remaining thread to start
-        if thrds:
-            # start the threads
-            for t in thrds:
-                t.start()
-            # wait until all threads are finished
-            for t in thrds:
-                t.join()
-            # clean up the list of threads
-            del thrds[:]
+            self._read(f, idx)
 
     @staticmethod
     def _collect(folder_path, limit_number_of_file=-1, recursive=False):
@@ -83,7 +61,7 @@ class TestResultParser:
             self.dizionario[idx]["GENERIC"]["path"] = f
         except Exception as e:
             self.errors.append(f)
-            print(f"ERROR: error raised with TC: {f}\n{traceback.format_exc()}\n")
+            logging.error(f"Issue found with test result: {f}\n{traceback.format_exc()}\n")
 
     def get_dictionary(self):
         return self.dizionario, self.errors
