@@ -1,8 +1,5 @@
-import tempfile
 import configparser as ConfigParser
 import os
-import random
-import string
 import re
 import time
 import datetime
@@ -15,8 +12,9 @@ YELLOW = "#fed84f"
 GREY = "#dddddd"
 DARK_GREY_CSS = "#ccc"
 
-class ReportHTML():
+
 class ReportHTML:
+    def __init__(self, output_dir, files=None):
         # check the directory exist
         if not os.path.isdir(output_dir):
             print("Folder choosen does not exist")
@@ -114,7 +112,6 @@ class ReportHTML:
         self.report.write('  });\n')
         self.report.write('}\n')
 
-
         self.report.write('</script>\n')
         self.report.write('</body>\n')
         self.report.write('</html>\n')
@@ -163,7 +160,6 @@ class ReportHTML:
             next(reader)
             for row in reader:
                 self.other_restriction.append(row[0])
-
 
     def ReadDeviationAssesmentFile(self):
         deviation_assesment_path = ""
@@ -312,7 +308,6 @@ class ReportHTML:
         self.report.write('    display: inline-block\n')
         self.report.write('}\n')
 
-
         self.report.write('.accordion {\n')
         self.report.write('  background-color: #eee;\n')
         self.report.write('  color: #444;\n')
@@ -348,8 +343,6 @@ class ReportHTML:
         self.report.write('  border-top: 1px solid Gainsboro;\n')
         self.report.write('}\n')
 
-
-
         self.report.write('</style>\n')
 
     def CreateSummary(self):
@@ -357,8 +350,6 @@ class ReportHTML:
         ok_tc = 0
         nok_tc = 0
         not_tested_tc = 0
-        manual_tc = 0
-        other = 0
 
         safety_total_tc = 0
         safety_ok_tc = 0
@@ -383,16 +374,16 @@ class ReportHTML:
 
             tmp_result = self.Config.get(section="GENERIC", option="result")
             tmp_tc_id = self.Config.get(section="GENERIC", option="test case number")
-            tmp_incident_no =self.Config.get(section="GENERIC", option="incident number")
-            tmp_sw_number =self.Config.get(section="ENVIRONMENT", option="sw number")
-            tmp_sw_revision =self.Config.get(section="ENVIRONMENT", option="sw revision")
+            tmp_incident_no = self.Config.get(section="GENERIC", option="incident number")
+            tmp_sw_number = self.Config.get(section="ENVIRONMENT", option="sw number")
+            tmp_sw_revision = self.Config.get(section="ENVIRONMENT", option="sw revision")
 
             if tmp_result == "OK":
-                ok_tc +=1
+                ok_tc += 1
             elif tmp_result == "NOT OK":
                 nok_tc += 1
             elif tmp_result == "NOT TESTED":
-                not_tested_tc +=1
+                not_tested_tc += 1
 
             if tmp_tc_id.find("Safety") >= 0:
                 safety_total_tc += 1
@@ -422,35 +413,6 @@ class ReportHTML:
 
             if tmp_sw_revision not in sw_revision_list:
                 sw_revision_list.append(tmp_sw_revision)
-
-
-        if total_tc != 0:
-            percent_ok = (100.0/total_tc)*ok_tc
-            percent_nok = (100.0/total_tc)*nok_tc
-            percent_not_tested = (100.0/total_tc)*not_tested_tc
-        else:
-            percent_ok = 0
-            percent_nok = 0
-            percent_not_tested = 0
-
-        if safety_total_tc != 0:
-            safety_percent_ok = (100.0 / safety_total_tc) * safety_ok_tc
-            safety_percent_nok = (100.0 / safety_total_tc) * safety_nok_tc
-            safety_percent_not_tested = (100.0 / safety_total_tc) * safety_not_tested_tc
-        else:
-            safety_percent_ok = 0
-            safety_percent_nok = 0
-            safety_percent_not_tested = 0
-
-        if ramd_total_tc != 0:
-            ramd_percent_ok = (100.0 / ramd_total_tc) * ramd_ok_tc
-            ramd_percent_nok = (100.0 / total_tc) * ramd_nok_tc
-            ramd_percent_not_tested = (100.0 / total_tc) * ramd_not_tested_tc
-        else:
-            ramd_percent_ok = 0
-            ramd_percent_nok = 0
-            ramd_percent_not_tested = 0
-
 
         if len(set(sw_number_list)) == 1:
             sw = sw_number_list[0]
@@ -520,9 +482,6 @@ class ReportHTML:
         self.report.write('	</tr>\n')
         self.report.write('</table>\n')
 
-
-
-
         self.report.write('<br>\n')
         self.report.write('<hr  class="new1">\n')
         self.report.write('<br>\n')
@@ -591,7 +550,7 @@ class ReportHTML:
             self.report.write('<br>\n')
             self.report.write('<div class="center">\n')
             self.report.write('<p style="text-align:justify">\n')
-            self.report.write('<font color="gray">These Comments are related to external test cases which are not performed as part of this test report. There may be no test cases or deviations shown in this report which cover these items.</font>\n')
+            self.report.write('<font color="gray">These Comments are related to external test cases which are not performed as part of this test report. There may be no test cases or deviations shown in this report which cover these items.</font>\n')  # noqa
             self.report.write('</p>\n')
             self.report.write('</div>\n')
 
@@ -599,7 +558,7 @@ class ReportHTML:
         self.report.write('<hr  class="new1">\n')
         self.report.write('<br>\n')
         self.report.write('<div class="center">\n')
-        self.report.write('<font color="gray">This document contain only the results of test performed with different tools/environment.<br> The final decision of whether to release the SW is performed using the AC Report Approval Workflow in Sharepoint.</font>\n')
+        self.report.write('<font color="gray">This document contain only the results of test performed with different tools/environment.<br> The final decision of whether to release the SW is performed using the AC Report Approval Workflow in Sharepoint.</font>\n')  # noqa
         self.report.write('</div>\n')
 
         self.report.write('<br>\n')
@@ -616,11 +575,11 @@ class ReportHTML:
         self.report.write('</tr>\n')
         self.report.write('<tr>\n')
         self.report.write('<td nowrap bgcolor="red">FAIL</td>\n')
-        self.report.write('<td nowrap>Test Case executed with unexpected results.<br>A description of the issue(s) can be found in the JIRA incident number linked to each test case.</td>\n')
+        self.report.write('<td nowrap>Test Case executed with unexpected results.<br>A description of the issue(s) can be found in the JIRA incident number linked to each test case.</td>\n')  # noqa
         self.report.write('</tr>\n')
         self.report.write('<tr>\n')
         self.report.write(f'<td nowrap bgcolor="{YELLOW}">SKIPPED</td>\n')
-        self.report.write('<td nowrap>The test case is not required for this application or cannot be tested for technical reasons.<br>Unless specifically written in the release notes, no further tests or actions are required</td>\n')
+        self.report.write('<td nowrap>The test case is not required for this application or cannot be tested for technical reasons.<br>Unless specifically written in the release notes, no further tests or actions are required</td>\n')  # noqa
         self.report.write('</tr>\n')
         self.report.write('</table>\n')
 
@@ -629,7 +588,6 @@ class ReportHTML:
         self.report.write('<br>\n')
         self.report.write('<br>\n')
         self.report.write('<font color="gray" size="1">Report generated on {0}</font>\n'.format(datetime.datetime.today().date()))
-
 
     def CreateResultTable(self):
         self.report.write('<table>\n')
@@ -646,7 +604,6 @@ class ReportHTML:
             self.Config = ConfigParser.ConfigParser()
             self.Config.read(test_result)
 
-
             self.report.write('<tr>\n')
             self.report.write('<td>{0}</td>\n'.format(self.Config.get(section="GENERIC", option="test case number")))
             requirement = self.Config.get(section="GENERIC", option="requirement cover")
@@ -661,7 +618,7 @@ class ReportHTML:
             else:
                 self.report.write('<td nowrap>{0}</td>\n'.format(self.Config.get(section="GENERIC", option="result")))
             self.report.write('<td>{0}</td>\n'.format(self.Config.get(section="GENERIC", option="comment")))
-            self.report.write('<td nowrap><a href="https://jira.zdv.liebherr.i/browse/{0}" target="_blank">{0}</a></td>\n'.format(self.Config.get(section="GENERIC", option="incident number")))
+            self.report.write('<td nowrap><a href="https://jira.zdv.liebherr.i/browse/{0}" target="_blank">{0}</a></td>\n'.format(self.Config.get(section="GENERIC", option="incident number")))  # noqa
             self.report.write('</tr>\n')
 
         self.report.write('</table>\n')
@@ -675,7 +632,6 @@ class ReportHTML:
         self.report.write('<th>Status</th>\n')
         self.report.write('<th>Comment</th>\n')
         self.report.write('</tr>\n')
-
 
         dictionary_of_requirement = {}
         dictionary_of_results = {}
@@ -772,7 +728,6 @@ class ReportHTML:
             self.report.write('<th>Comment</th>\n')
         self.report.write('</tr>\n')
 
-
         # create a dictionary starting from the data
         dictionary_of_incident = collections.OrderedDict()
 
@@ -782,7 +737,7 @@ class ReportHTML:
 
             tc_id = self.Config.get(section="GENERIC", option="test case number")
             requirement = self.Config.get(section="GENERIC", option="requirement cover")
-            result = self.Config.get(section="GENERIC", option="result")
+            # result = self.Config.get(section="GENERIC", option="result")
             incident = self.Config.get(section="GENERIC", option="incident number")
 
             # Fill the dictionary
@@ -832,7 +787,6 @@ class ReportHTML:
 
         self.report.write('</table>\n')
 
-
     def CreateDetailsTable(self):
 
         for test_result in self.files:
@@ -849,8 +803,8 @@ class ReportHTML:
             incident = self.Config.get(section="GENERIC", option="incident number")
             try:
                 session_id = self.Config.get(section="GENERIC", option="test session id")
-            except:
-                session_id ="(NA)"
+            except Exception:
+                session_id = "(NA)"
             description = self.Config.get(section="GENERIC", option="test case description")
 
             pc_name = self.Config.get(section="ENVIRONMENT", option="pc name")
@@ -861,27 +815,24 @@ class ReportHTML:
             a2l_master = self.Config.get(section="ENVIRONMENT", option="a2l master")
             a2l_slave = self.Config.get(section="ENVIRONMENT", option="a2l slave")
             bootloader = self.Config.get(section="ENVIRONMENT", option="bootloader")
-            checksum_calibration = self.Config.get(section="ENVIRONMENT", option="checksum calibration")
-            checksum_application = self.Config.get(section="ENVIRONMENT", option="checksum application")
             checksum_calibration_application = self.Config.get(section="ENVIRONMENT", option="checksum calibration and application")
             ecu_id = self.Config.get(section="ENVIRONMENT", option="ecu id")
             ecu_spf = self.Config.get(section="ENVIRONMENT", option="ecu spf_idx")
             ecu_serial_number = self.Config.get(section="ENVIRONMENT", option="ecu serial_number")
             try:
                 harness_id = self.Config.get(section="ENVIRONMENT", option="harness id")
-            except:
+            except Exception:
                 harness_id = "(NA)"
             try:
                 hil_model_revision = self.Config.get(section="ENVIRONMENT", option="hil model revision number")
-            except:
+            except Exception:
                 hil_model_revision = "(NA)"
             try:
                 tools_folder_revision = self.Config.get(section="ENVIRONMENT", option="tools folder revision number")
-            except:
+            except Exception:
                 tools_folder_revision = "(NA)"
 
             log = self.Config.get(section="ACTUAL RESULTS", option="log")
-
 
             self.report.write('<button class="accordion">{0}</button>\n'.format(tc_id))
             self.report.write('<div class="panel">\n')
@@ -1001,12 +952,3 @@ class ReportHTML:
 
             self.report.write('</table>\n')
             self.report.write('</div>\n')
-
-
-# list_of_files = [r"C:\CAD\Workspace\SystemTests\25_ECU2HD\Branches\ECU2HD_SW_21_19_xx\21.19.00_239156_RTM\ICEBREKER_20191101\1006_Customer Specific Icebreaker\30_Results\2019_10_30_17_28_53_LMBPC0588.txt",
-#                  r"C:\CAD\Workspace\SystemTests\25_ECU2HD\Branches\ECU2HD_SW_21_19_xx\21.19.00_239156_RTM\ICEBREKER_20191101\1006_Customer Specific Icebreaker\30_Results\2019_10_30_17_28_55_LMBPC0588.txt"]
-# PATH = r"C:\Users\lmbcea0\Desktop"
-# a = ReportHTML(PATH, files= list_of_files)
-#a.create_file(PATH)
-
-
