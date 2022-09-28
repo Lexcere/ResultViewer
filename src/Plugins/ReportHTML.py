@@ -16,21 +16,21 @@ GREY = "#dddddd"
 DARK_GREY_CSS = "#ccc"
 
 class ReportHTML():
-    def __init__(self,saveDirectory, files=None):
+class ReportHTML:
         # check the directory exist
-        if not os.path.isdir(saveDirectory):
+        if not os.path.isdir(output_dir):
             print("Folder choosen does not exist")
             return -1
 
         self.files = files
         self.Config = ConfigParser.ConfigParser()
-        self.save_directory = saveDirectory
+        self.save_directory = output_dir
         self.info_available = False
         self.other_restriction_available = False
         self.deviation_assesment_avaliable = False
 
         today = time.strftime("%Y_%m_%d_%H_%M_%S", time.localtime())
-        self.ReportFileName = r"{0}\\AC_48_xxx_ECU_XX_XX_XX_TestSummaryReport_{1}.html".format(saveDirectory, today)
+        self.ReportFileName = r"{0}\\TestSummaryReport_{1}.html".format(output_dir, today)
 
         # create file
         self.report = open(self.ReportFileName, "w")
