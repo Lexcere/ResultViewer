@@ -1,6 +1,6 @@
 import argparse
-from . import ResultsParser
-from . import ui
+import ResultsParser
+import ui
 import sys
 import os
 import colorama
