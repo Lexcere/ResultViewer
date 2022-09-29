@@ -1,8 +1,10 @@
 import sys
 
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow, QSpinBox, QCheckBox, QPushButton, QTreeWidget, QGridLayout
+from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow, QSpinBox, QCheckBox, QPushButton, QTreeWidget, QAction, \
+    QFileDialog
 from PyQt5.QtWidgets import QMenuBar, QMenu, QToolBar
+import ResultsParser
 
 
 class Window(QMainWindow):
@@ -18,6 +20,7 @@ class Window(QMainWindow):
         self.showMaximized()
 
         # self._create_menu_bar()
+        self._create_actions()
         self._create_tool_bars()
 
         self.tree = QTreeWidget()
@@ -26,6 +29,11 @@ class Window(QMainWindow):
         # self.tree.show()
 
         self.setCentralWidget(self.tree)
+
+    def _create_actions(self):
+        self.open_action = QAction("Open button", self)
+        self.open_action.setStatusTip("this is my button")
+        self.open_action.triggered.connect(self.open_folder)
 
     def _create_menu_bar(self):
         menuBar = self.menuBar()
@@ -42,36 +50,39 @@ class Window(QMainWindow):
         main_tool_bar = QToolBar("Toolbar", self)
         self.addToolBar(Qt.TopToolBarArea, main_tool_bar)
 
-        # add open button
-        self.open_button = QPushButton("Open")
-        main_tool_bar.addWidget(self.open_button)
-
-        # add refresh button
+        self.open_button = QPushButton(self)
+        self.open_button.setText("Open")
         self.refresh_button = QPushButton("Refresh")
-        main_tool_bar.addWidget(self.refresh_button)
-
-        # add checkbox
         self.recursive_label = QLabel("Recursive")
-        main_tool_bar.addWidget(self.recursive_label)
-
         self.recursive_check_box = QCheckBox()
         self.recursive_check_box.setFocusPolicy(Qt.NoFocus)
-        main_tool_bar.addWidget(self.recursive_check_box)
-
-        # add spin box
         self.fontSizeSpinBox = QSpinBox()
         self.fontSizeSpinBox.setFocusPolicy(Qt.NoFocus)
-        main_tool_bar.addWidget(self.fontSizeSpinBox)
-
-        # add choose path
         self.path_label = QLabel("my/choosen/path")
-        main_tool_bar.addWidget(self.path_label)
-
-        # add generate button
         self.generate_button = QPushButton("Generate report")
         self.generate_button.setToolTip("Generate html report from current directory")
+
+        self.open_button.clicked.connect(self.open_folder)
+        self.refresh_button.clicked.connect(self.refresh)
+        self.generate_button.clicked.connect(self.generate_report)
+
+        main_tool_bar.addWidget(self.open_button)
+        main_tool_bar.addWidget(self.refresh_button)
+        main_tool_bar.addWidget(self.recursive_label)
+        main_tool_bar.addWidget(self.recursive_check_box)
+        main_tool_bar.addWidget(self.fontSizeSpinBox)
+        main_tool_bar.addWidget(self.path_label)
         main_tool_bar.addWidget(self.generate_button)
 
+    def open_folder(self):
+        folder_path = str(QFileDialog.getExistingDirectory(self, "Select Directory"))
+        self.path_label.setText(folder_path)
+
+    def refresh(self):
+        print("refresh")
+
+    def generate_report(self):
+        print("generate report")
 
 def main():
     app = QApplication(sys.argv)
