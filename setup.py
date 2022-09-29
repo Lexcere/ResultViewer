@@ -18,7 +18,7 @@ setuptools.setup(
     package_dir={"result_viewer": "src"},
     packages=["result_viewer"],
     entry_points={
-        "console_scripts": ["result-viewer = src.main:main"]
+        "console_scripts": ["result-viewer = result_viewer.main:main"]
     },
     include_package_data=True,
 )
