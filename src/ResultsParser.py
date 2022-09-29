@@ -6,6 +6,7 @@ import traceback
 import os
 import re
 import logging
+import datetime
 
 
 def match_file_name(_string=""):
@@ -115,6 +116,22 @@ class TestResultParser:
         for idx in self.dizionario:
             list_of_files_path.append(self.dizionario[idx]["GENERIC"]["path"])
         return list_of_files_path
+
+    def get_testing_days(self):
+        total_tc = len(self.dizionario)
+        if total_tc < 1:
+            raise Exception("No test found")
+
+        dates = []
+        for idx in self.dizionario:
+            dates.append(datetime.datetime.strptime(self.dizionario[idx]["GENERIC"]["test execution date"], '%d/%m/%Y'))
+
+        oldest_date = max(dates)
+        youngest_date = min(dates)
+        delta_date = oldest_date - youngest_date
+        delta_date = delta_date.days
+        # delta_date += 1
+        return delta_date
 
     @staticmethod
     def open(self):
