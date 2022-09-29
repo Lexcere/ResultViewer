@@ -1,6 +1,5 @@
 import glob
 import scandir
-from threading import Thread
 import configparser
 import traceback
 import os
