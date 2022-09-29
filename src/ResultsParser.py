@@ -1,11 +1,11 @@
 import glob
 import scandir
-from threading import Thread
 import configparser
 import traceback
 import os
 import re
 import logging
+import datetime
 
 
 def match_file_name(_string=""):
@@ -74,7 +74,6 @@ class TestResultParser:
         missing_incident_number_for_nok = 0
         missing_comment_for_nok = 0
         missing_comment_for_not_tested = 0
-        total_tc = 0
         _pass = 0
         fail = 0
         skip = 0
@@ -83,8 +82,6 @@ class TestResultParser:
         defect_counter = []
         dates = []
         for i in self.dizionario:
-            total_tc += 1
-
             if self.dizionario[i]["GENERIC"]["result"] == "OK":
                 _pass += 1
             elif self.dizionario[i]["GENERIC"]["result"] == "NOT OK":
@@ -94,7 +91,7 @@ class TestResultParser:
             else:
                 other += 1
 
-        metrics["total"] = total_tc
+        metrics["total"] = len(self.dizionario)
         metrics["pass"] = _pass
         metrics["fail"] = fail
         metrics["skip"] = skip
@@ -115,6 +112,22 @@ class TestResultParser:
         for idx in self.dizionario:
             list_of_files_path.append(self.dizionario[idx]["GENERIC"]["path"])
         return list_of_files_path
+
+    def get_testing_days(self):
+        total_tc = len(self.dizionario)
+        if total_tc < 1:
+            raise Exception("No test found")
+
+        dates = []
+        for idx in self.dizionario:
+            dates.append(datetime.datetime.strptime(self.dizionario[idx]["GENERIC"]["test execution date"], '%d/%m/%Y'))
+
+        oldest_date = max(dates)
+        youngest_date = min(dates)
+        delta_date = oldest_date - youngest_date
+        delta_date = delta_date.days
+        # delta_date += 1
+        return delta_date
 
     @staticmethod
     def open(self):
