@@ -38,13 +38,15 @@ def main():
         elif args.date:
             print(f"{parser.get_testing_days()} day/s")
         else:
+            if parser.count() == 0:
+                print("No test found")
+                return
             print(f"{parser.metrics()['total']} Total")
             print(f"{colorama.Fore.GREEN}{parser.metrics()['pass']} Passed")
             print(f"{colorama.Fore.RED}{parser.metrics()['fail']} Failed")
             print(f"{colorama.Fore.YELLOW}{parser.metrics()['skip']} Skipped")
             print(f"{colorama.Fore.BLUE}{parser.metrics()['other']} Other{colorama.Style.RESET_ALL}")
-            if parser.count() != 0:
-                print(f"in {parser.get_testing_days()} day/s")
+            print(f"in {parser.get_testing_days()} day/s")
 
     elif args.command == "report" or args.command == "rp":
         parser = ResultsParser.TestResultParser(folder_path=args.dir, recursive=False)
