@@ -75,7 +75,6 @@ class TestResultParser:
         missing_incident_number_for_nok = 0
         missing_comment_for_nok = 0
         missing_comment_for_not_tested = 0
-        total_tc = 0
         _pass = 0
         fail = 0
         skip = 0
@@ -84,8 +83,6 @@ class TestResultParser:
         defect_counter = []
         dates = []
         for i in self.dizionario:
-            total_tc += 1
-
             if self.dizionario[i]["GENERIC"]["result"] == "OK":
                 _pass += 1
             elif self.dizionario[i]["GENERIC"]["result"] == "NOT OK":
@@ -95,7 +92,7 @@ class TestResultParser:
             else:
                 other += 1
 
-        metrics["total"] = total_tc
+        metrics["total"] = len(self.dizionario)
         metrics["pass"] = _pass
         metrics["fail"] = fail
         metrics["skip"] = skip
