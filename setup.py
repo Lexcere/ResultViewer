@@ -16,7 +16,7 @@ setuptools.setup(
     url="https://github.com/Lexcere/ResultViewer",
     install_requires=install_requires,
     package_dir={"result_viewer": "src"},
-    packages=["result_viewer"],
+    packages=["result_viewer", "result_viewer.Plugins"],
     entry_points={
         "console_scripts": ["result-viewer = result_viewer.main:main"]
     },
