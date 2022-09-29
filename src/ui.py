@@ -16,11 +16,16 @@ class Window(QMainWindow):
         # self.setWindowFlag(Qt.FramelessWindowHint)
 
         self.showMaximized()
-        self.centralWidget = QLabel("Hello, World")
-        self.centralWidget.setAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
-        self.setCentralWidget(self.centralWidget)
+
         # self._create_menu_bar()
         self._create_tool_bars()
+
+        self.tree = QTreeWidget()
+        self.tree.setColumnCount(3)
+        self.tree.setHeaderLabels(['#', 'TC', 'Status'])
+        # self.tree.show()
+
+        self.setCentralWidget(self.tree)
 
     def _create_menu_bar(self):
         menuBar = self.menuBar()
