@@ -123,6 +123,12 @@ class TestResultParser:
         # delta_date += 1
         return delta_date
 
+    def are_comment_filled(self):
+        raise NotImplementedError()
+
+    def are_incident_number_filled(self):
+        raise NotImplementedError()
+
     @staticmethod
     def open(self):
         raise NotImplementedError()
