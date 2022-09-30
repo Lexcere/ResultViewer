@@ -9,6 +9,7 @@ GREEN = "#99ee99"
 RED = "#ff6666"
 YELLOW = "#fed84f"
 
+
 class ResultObject(object):
     def __init__(self):
         self.title = ""
@@ -30,25 +31,25 @@ class TC_result_HTML():
         log = Config.get(section="ACTUAL RESULTS", option="log")
         log = log.split("\n")
         # Get Test Case Info
-        self.tc_ID   = Config.get(section="GENERIC",     option="test case number")
+        self.tc_ID = Config.get(section="GENERIC",     option="test case number")
         self.tc_vers = Config.get(section="GENERIC",     option="test case version")
         self.tc_Desc = Config.get(section="GENERIC",     option="test case description")
-        self.req_ID  = Config.get(section="GENERIC",     option="requirement cover")
+        self.req_ID = Config.get(section="GENERIC",     option="requirement cover")
         self.req_ID = self.req_ID.lstrip()
         self.req_ID = self.req_ID.replace("\n", "<br>")
         self.measurement_file = Config.get(section="GENERIC",     option="measurement file/s")
         self.measurement_file = self.measurement_file.lstrip()
         self.measurement_file = self.measurement_file.split("\n")
         self.tc_date = Config.get(section="GENERIC",     option="test execution date")
-        self.tc_sw   = Config.get(section="ENVIRONMENT", option="sw number")
-        self.tc_rev  = Config.get(section="ENVIRONMENT", option="sw revision")
-        self.tc_hil  = Config.get(section="ENVIRONMENT", option="hil model")
+        self.tc_sw = Config.get(section="ENVIRONMENT", option="sw number")
+        self.tc_rev = Config.get(section="ENVIRONMENT", option="sw revision")
+        self.tc_hil = Config.get(section="ENVIRONMENT", option="hil model")
         self.tc_a2lM = Config.get(section="ENVIRONMENT", option="a2l master")
         self.tc_a2lS = Config.get(section="ENVIRONMENT", option="a2l slave")
-        self.tc_cdd  = Config.get(section="ENVIRONMENT", option="cdd")
+        self.tc_cdd = Config.get(section="ENVIRONMENT", option="cdd")
         self.tc_can1 = Config.get(section="ENVIRONMENT", option="can1 protocol")
         self.tc_can2 = Config.get(section="ENVIRONMENT", option="can2 protocol")
-        self.tc_eng  = Config.get(section="ENVIRONMENT", option="engine variant")
+        self.tc_eng = Config.get(section="ENVIRONMENT", option="engine variant")
 
         # create randon name for file
         self.name = ""
@@ -196,7 +197,6 @@ class TC_result_HTML():
         self.f.write('    position: absolute;\n')
         self.f.write('}\n')
 
-
         self.f.write('</style>\n')
 
         # End of HEAD Section
@@ -229,44 +229,44 @@ class TC_result_HTML():
         self.f.write('<td>')
         file_path = os.path.dirname(self.tc_raw_result_path)
         for meas in self.measurement_file:
-            self.f.write('<a href="{1}\{0}" target="_blank">{0}</a><br>\n'.format(meas, file_path))
+            self.f.write(r'<a href="{1}\{0}" target="_blank">{0}</a><br>\n'.format(meas, file_path))
         self.f.write('</td>\n')
         self.f.write('</tr>\n')
         self.f.write('<tr>\n')
         self.f.write('<th>Software</th>\n')
-        self.f.write('<td>' +self.tc_sw + '</td>\n')
+        self.f.write('<td>' + self.tc_sw + '</td>\n')
         self.f.write('</tr>\n')
         self.f.write('<tr>\n')
         self.f.write('<th>Revision</th>\n')
-        self.f.write('<td>' +self.tc_rev + '</td>\n')
+        self.f.write('<td>' + self.tc_rev + '</td>\n')
         self.f.write('</tr>\n')
         self.f.write('<tr>\n')
         self.f.write('<th>HIL Model</th>\n')
-        self.f.write('<td>' +self.tc_hil + '</td>\n')
+        self.f.write('<td>' + self.tc_hil + '</td>\n')
         self.f.write('</tr>\n')
         self.f.write('<tr>\n')
         self.f.write('<th>A2L Master</th>\n')
-        self.f.write('<td>' +self.tc_a2lM + '</td>\n')
+        self.f.write('<td>' + self.tc_a2lM + '</td>\n')
         self.f.write('</tr>\n')
         self.f.write('<tr>\n')
         self.f.write('<th>A2L Slave</th>\n')
-        self.f.write('<td>' +self.tc_a2lS + '</td>\n')
+        self.f.write('<td>' + self.tc_a2lS + '</td>\n')
         self.f.write('</tr>\n')
         self.f.write('<tr>\n')
         self.f.write('<th>CDD Master</th>\n')
-        self.f.write('<td>' +self.tc_cdd + '</td>\n')
+        self.f.write('<td>' + self.tc_cdd + '</td>\n')
         self.f.write('</tr>\n')
         self.f.write('<tr>\n')
         self.f.write('<th>CAN1 Protocol</th>\n')
-        self.f.write('<td>' +self.tc_can1 + '</td>\n')
+        self.f.write('<td>' + self.tc_can1 + '</td>\n')
         self.f.write('</tr>\n')
         self.f.write('<tr>\n')
         self.f.write('<th>CAN2 Protocol</th>\n')
-        self.f.write('<td>' +self.tc_can2 + '</td>\n')
+        self.f.write('<td>' + self.tc_can2 + '</td>\n')
         self.f.write('</tr>\n')
         self.f.write('<tr>\n')
         self.f.write('<th>Engine Type</th>\n')
-        self.f.write('<td>' +self.tc_eng + '</td>\n')
+        self.f.write('<td>' + self.tc_eng + '</td>\n')
         self.f.write('</tr>\n')
 
         self.f.write('</table>\n')
@@ -280,7 +280,7 @@ class TC_result_HTML():
     def _body(self, text_to_write=""):
         if re.search(r'\d\d:\d\d:\d\d', text_to_write) is not None:
             self.temp_obj = ResultObject()
-            index = re.search("\d\d:\d\d:\d\d.\d\d\d", text_to_write).end()
+            index = re.search(r"\d\d:\d\d:\d\d.\d\d\d", text_to_write).end()
             time = text_to_write[:index]
             title = text_to_write[index:]
             detail = text_to_write.split("\t\t\t")[2:]
@@ -298,7 +298,7 @@ class TC_result_HTML():
     def _close(self):
         # CREATE SCRIPT SECTION
         # self.f.write("<script src='http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.js'></script>\n")
-        self.f.write("<script src='C:\CAD\Workspace\HILSimulator\HIL_Tools\TestCase_RawResult_Manager\.data\jquery-3.2.1.js.download'></script>\n")
+        self.f.write(r"<script src='C:\CAD\Workspace\HILSimulator\HIL_Tools\TestCase_RawResult_Manager\.data\jquery-3.2.1.js.download'></script>\n")
         self.f.write('<script type="text/javascript">\n')
 
         self.f.write("$(document).ready(function(){\n")
@@ -352,11 +352,3 @@ class TC_result_HTML():
         self.f.write('</html>\n')
 
         self.f.close()
-
-
-
-#PATH = r"Z:\Public\Transfert\HIL\Results\RawResults\2017_09_19_10_41_08_LMBPC0588.txt"
-#a = TC_result_HTML()
-#a.create_file(PATH)
-
-

@@ -3,8 +3,7 @@ import sys
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow, QSpinBox, QCheckBox, QPushButton, QTreeWidget, QAction, \
     QFileDialog
-from PyQt5.QtWidgets import QMenuBar, QMenu, QToolBar
-import ResultsParser
+from PyQt5.QtWidgets import QMenu, QToolBar
 
 
 class Window(QMainWindow):
@@ -36,15 +35,15 @@ class Window(QMainWindow):
         self.open_action.triggered.connect(self.open_folder)
 
     def _create_menu_bar(self):
-        menuBar = self.menuBar()
+        menu_bar = self.menuBar()
         # Creating menus using a QMenu object
-        fileMenu = QMenu("&File", self)
-        menuBar.addMenu(fileMenu)
+        file_menu = QMenu("&File", self)
+        menu_bar.addMenu(file_menu)
         # Creating menus using a title
-        editMenu = menuBar.addMenu("&Edit")
-        helpMenu = menuBar.addMenu("&Help")
+        # editMenu = menu_bar.addMenu("&Edit")
+        # helpMenu = menu_bar.addMenu("&Help")
 
-        self.setMenuBar(menuBar)
+        self.setMenuBar(menu_bar)
 
     def _create_tool_bars(self):
         main_tool_bar = QToolBar("Toolbar", self)
@@ -83,6 +82,7 @@ class Window(QMainWindow):
 
     def generate_report(self):
         print("generate report")
+
 
 def main():
     app = QApplication(sys.argv)

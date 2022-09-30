@@ -2,6 +2,7 @@
 max-line-length = 160
 exclude = .idea,
           venv
+          build
 count=True
 format=html
 htmldir=report-flake
