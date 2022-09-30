@@ -59,7 +59,7 @@ class TestResultParser:
             parser_.read(f)
             self.dizionario[idx] = parser_._sections
             self.dizionario[idx]["GENERIC"]["path"] = f
-        except Exception as e:
+        except Exception:
             self.errors.append(f)
             logging.error(f"Issue found with test result: {f}\n{traceback.format_exc()}\n")
 
@@ -71,16 +71,10 @@ class TestResultParser:
 
     def metrics(self):
         metrics = {}
-        missing_incident_number_for_nok = 0
-        missing_comment_for_nok = 0
-        missing_comment_for_not_tested = 0
         _pass = 0
         fail = 0
         skip = 0
-        manual_tc = 0
         other = 0
-        defect_counter = []
-        dates = []
         for i in self.dizionario:
             if self.dizionario[i]["GENERIC"]["result"] == "OK":
                 _pass += 1
