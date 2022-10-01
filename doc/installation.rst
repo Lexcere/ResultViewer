@@ -2,6 +2,6 @@
 Installation
 ============
 
+.. code-block:: bash
 
-
-sdfsdfsdfssfd
+    pip install git+https://github.com/Lexcere/ResultViewer.git
