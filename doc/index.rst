@@ -10,8 +10,9 @@ Welcome to Results Viewer's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   installation
    usage
-
+   contribute
 
 
 Indices and tables
