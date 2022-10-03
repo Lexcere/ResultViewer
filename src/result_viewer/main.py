@@ -12,6 +12,7 @@ colorama.init()  # this is necessary for window coloring
 def main():
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(dest="command", required=False)
+    parser_viewer = subparsers.add_parser("viewer", help="open ui", aliases=['v'])
     parser_show = subparsers.add_parser("show", help="show help", aliases=['sh'])
     parser_report = subparsers.add_parser("report", help="report help", aliases=['rp'])
 
@@ -27,6 +28,10 @@ def main():
     args = parser.parse_args()
 
     if len(sys.argv) == 1:
+        # ui.main()
+        parser.print_help()
+
+    elif args.command == "viewer" or args.command == "v":
         ui.main()
 
     elif args.command == "show" or args.command == "sh":
