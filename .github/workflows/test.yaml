@@ -18,4 +18,4 @@ jobs:
       - name: Installation
         run: |
           pip install .
-          result -h
+          results -h
