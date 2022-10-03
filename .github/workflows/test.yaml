@@ -15,3 +15,7 @@ jobs:
       - name: Test
         run: |
           python -m pytest
+      - name: Installation
+        run: |
+          pip install .
+          result -h
