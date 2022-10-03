@@ -7,7 +7,7 @@ with open("requirements.txt") as fid:
 
 setuptools.setup(
     name="result_viewer",
-    version="1.0",
+    version="0.0.1",
     author="Cere",
     author_email="cere@cere.com",
     description=description,
