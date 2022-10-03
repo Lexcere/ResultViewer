@@ -1,7 +1,7 @@
 import logging
 
 import pytest
-from src.ResultsParser import TestResultParser, match_file_name
+from src.result_viewer.ResultsParser import TestResultParser, match_file_name
 import os
 
 
