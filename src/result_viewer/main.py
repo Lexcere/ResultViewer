@@ -42,23 +42,29 @@ def main():
             print("No results found")
             return
         print("")
-        print(f"{parser.metrics()['total']} Total", end=", ")
-        print(f"{colorama.Fore.GREEN}{parser.metrics()['pass']} Passed", end=", ")
-        print(f"{colorama.Fore.RED}{parser.metrics()['fail']} Failed", end=", ")
-        print(f"{colorama.Fore.YELLOW}{parser.metrics()['skip']} Skipped", end=", ")
-        print(f"{colorama.Fore.BLUE}{parser.metrics()['other']} Other{colorama.Style.RESET_ALL}", end=" ")
-        print(f"in {parser.get_testing_days()} day/s")
+        total = f"{parser.metrics()['total']} Total"
+        passed = f"{colorama.Fore.GREEN}{parser.metrics()['pass']} Passed"
+        failed = f"{colorama.Fore.RED}{parser.metrics()['fail']} Failed"
+        skipped = f"{colorama.Fore.YELLOW}{parser.metrics()['skip']} Skipped"
+        other = f"{colorama.Fore.BLUE}{parser.metrics()['other']} Other{colorama.Style.RESET_ALL}"
+        days = f"in {parser.get_testing_days()} day/s"
+        title = f" {total}, {passed}, {failed}, {skipped}, {other} {days} "
+        title = title.center(100, "=")
+        print(title)
         checksum = parser.is_checksum_valid()
         if checksum == 0:
-            print("Checksum OK")
+            checksum_status = f"{colorama.Fore.GREEN}OK{colorama.Style.RESET_ALL}"
         else:
-            print(f"Checksum: {checksum}")
-        if checksum == 0:
-            print("", end=f"{colorama.Fore.GREEN}")
-            print(" READY FOR REPORT ".center(80, '='), end=f"{colorama.Style.RESET_ALL}\n")
-        else:
-            print("", end=f"{colorama.Fore.RED}")
-            print(" NOT READY FOR REPORT ".center(80, '='), end=f"{colorama.Style.RESET_ALL}\n")
+            checksum_status = f"{colorama.Fore.RED}NOK{colorama.Style.RESET_ALL}"
+        print(f"Checksum\t [{checksum_status}]")
+        print(f"Comments\t [..]")
+        print(f"Incident number\t [..]")
+        # if checksum == 0:
+        #     print("", end=f"{colorama.Fore.GREEN}")
+        #     print(" READY FOR REPORT ".center(80, '='), end=f"{colorama.Style.RESET_ALL}\n")
+        # else:
+        #     print("", end=f"{colorama.Fore.RED}")
+        #     print(" NOT READY FOR REPORT ".center(80, '='), end=f"{colorama.Style.RESET_ALL}\n")
 
     elif args.command == "report" or args.command == "r":
         parser = ResultsParser.TestResultParser(folder_path=args.dir, recursive=False)
