@@ -57,8 +57,8 @@ def main():
         else:
             checksum_status = f"{colorama.Fore.RED}NOK{colorama.Style.RESET_ALL}"
         print(f"Checksum\t [{checksum_status}]")
-        print(f"Comments\t [..]")
-        print(f"Incident number\t [..]")
+        print("Comments\t [..]")
+        print("Incident number\t [..]")
         # if checksum == 0:
         #     print("", end=f"{colorama.Fore.GREEN}")
         #     print(" READY FOR REPORT ".center(80, '='), end=f"{colorama.Style.RESET_ALL}\n")
