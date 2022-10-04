@@ -39,7 +39,7 @@ def main():
         parser = ResultsParser.TestResultParser(folder_path=args.dir, recursive=args.recursive)
 
         if parser.count() == 0:
-            print("No test found")
+            print("No results found")
             return
         print("")
         print(f"{parser.metrics()['total']} Total", end=", ")
