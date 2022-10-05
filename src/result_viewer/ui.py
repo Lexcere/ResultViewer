@@ -62,6 +62,7 @@ class Window(QMainWindow):
         self.recursive_label = QLabel("Recursive")
         self.recursive_check_box = QCheckBox()
         self.recursive_check_box.setFocusPolicy(Qt.NoFocus)
+        self.recursive_check_box.setChecked(True)
         self.fontSizeSpinBox = QSpinBox()
         self.fontSizeSpinBox.setMaximum(100000000)
         self.fontSizeSpinBox.setValue(10000)
