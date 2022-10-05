@@ -2,8 +2,9 @@ import sys
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow, QSpinBox, QCheckBox, QPushButton, QTreeWidget, QAction, \
-    QFileDialog
+    QFileDialog, QTreeWidgetItem
 from PyQt5.QtWidgets import QMenu, QToolBar
+import ResultsParser
 
 
 class Window(QMainWindow):
@@ -23,6 +24,7 @@ class Window(QMainWindow):
         self._create_tool_bars()
 
         self.tree = QTreeWidget()
+        self.tree.setAlternatingRowColors(True)
         self.tree.setColumnCount(3)
         self.tree.setHeaderLabels(['#', 'TC', 'Status'])
         # self.tree.show()
@@ -78,10 +80,21 @@ class Window(QMainWindow):
         self.path_label.setText(folder_path)
 
     def refresh(self):
-        print("refresh")
+        parser = ResultsParser.TestResultParser(folder_path=self.path_label.text(), recursive=self.recursive_check_box.isChecked())
+        diz, _ = parser.get_dictionary()
+        self._populate_tree(diz)
 
     def generate_report(self):
         print("generate report")
+
+    def _populate_tree(self, results_dict):
+        for idx in results_dict:
+            QTreeWidgetItem(self.tree, [
+                                        str(idx),
+                                        str(results_dict[idx]["GENERIC"]["test case number"]),
+                                        str(results_dict[idx]["GENERIC"]["result"])
+                                        ]
+                            )
 
 
 def main():
