@@ -3,7 +3,7 @@ import os
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow, QSpinBox, QCheckBox, QPushButton, QTreeWidget, QAction, \
-    QFileDialog, QTreeWidgetItem, QErrorMessage, QMessageBox
+    QFileDialog, QTreeWidgetItem, QMessageBox
 from PyQt5.QtWidgets import QMenu, QToolBar
 import ResultsParser
 
@@ -90,7 +90,7 @@ class Window(QMainWindow):
         if not os.path.isdir(self.path_label.text()):
             error_dialog = QMessageBox(self)
             error_dialog.setIcon(QMessageBox.Warning)
-            error_dialog.setWindowTitle(f"Wrong directory")
+            error_dialog.setWindowTitle("Wrong directory")
             error_dialog.setText(f"selected directory {self.path_label.text()} does not exist")
             error_dialog.show()
             return
