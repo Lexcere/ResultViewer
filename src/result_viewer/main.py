@@ -24,6 +24,7 @@ def main():
     parser_show.add_argument("-r", "--recursive", help="select to search recursively inside folder or not", action="store_true")
 
     parser_report.add_argument('dir', nargs='?', default=os.getcwd())
+    parser_report.add_argument("-r", "--recursive", help="select to search recursively inside folder or not", action="store_true")
     # parser_report.add_argument('-o', "--output", help="select where to save report", action="store_true")
 
     args = parser.parse_args()
@@ -67,7 +68,7 @@ def main():
         #     print(" NOT READY FOR REPORT ".center(80, '='), end=f"{colorama.Style.RESET_ALL}\n")
 
     elif args.command == "report" or args.command == "r":
-        parser = ResultsParser.TestResultParser(folder_path=args.dir, recursive=False)
+        parser = ResultsParser.TestResultParser(folder_path=args.dir, recursive=args.recursive)
         ReportHTML.ReportHTML(args.dir, parser.get_files())
         print(f"Report generated in {args.dir}")
 
