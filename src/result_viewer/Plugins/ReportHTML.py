@@ -1,4 +1,4 @@
-import configparser as ConfigParser
+import configparser
 import os
 import re
 import time
@@ -21,7 +21,7 @@ class ReportHTML:
             return -1
 
         self.files = files
-        self.Config = ConfigParser.ConfigParser()
+        self.Config = configparser.RawConfigParser()
         self.save_directory = output_dir
         self.info_available = False
         self.other_restriction_available = False
@@ -368,7 +368,7 @@ class ReportHTML:
         revision = ""
 
         for test_result in self.files:
-            self.Config = ConfigParser.ConfigParser()
+            self.Config = configparser.RawConfigParser()
             self.Config.read(test_result)
             total_tc += 1
 
@@ -601,7 +601,7 @@ class ReportHTML:
         self.report.write('		  </tr>\n')
 
         for test_result in self.files:
-            self.Config = ConfigParser.ConfigParser()
+            self.Config = configparser.RawConfigParser()
             self.Config.read(test_result)
 
             self.report.write('<tr>\n')
@@ -638,7 +638,7 @@ class ReportHTML:
         dictionary_of_comments = {}
 
         for test_result in self.files:
-            self.Config = ConfigParser.ConfigParser()
+            self.Config = configparser.RawConfigParser()
             self.Config.read(test_result)
 
             tc_id = self.Config.get(section="GENERIC", option="test case number")
@@ -732,7 +732,7 @@ class ReportHTML:
         dictionary_of_incident = collections.OrderedDict()
 
         for test_result in self.files:
-            self.Config = ConfigParser.ConfigParser()
+            self.Config = configparser.RawConfigParser()
             self.Config.read(test_result)
 
             tc_id = self.Config.get(section="GENERIC", option="test case number")
@@ -790,7 +790,7 @@ class ReportHTML:
     def CreateDetailsTable(self):
 
         for test_result in self.files:
-            self.Config = ConfigParser.ConfigParser()
+            self.Config = configparser.RawConfigParser()
             self.Config.read(test_result)
 
             tc_id = self.Config.get(section="GENERIC", option="test case number")
