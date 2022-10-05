@@ -85,6 +85,7 @@ class Window(QMainWindow):
     def open_folder(self):
         folder_path = str(QFileDialog.getExistingDirectory(self, "Select Directory"))
         self.path_label.setText(folder_path)
+        self.setWindowTitle(folder_path)
         self.refresh()
 
     def refresh(self):
