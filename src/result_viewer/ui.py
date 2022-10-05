@@ -1,8 +1,9 @@
 import sys
+import os
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow, QSpinBox, QCheckBox, QPushButton, QTreeWidget, QAction, \
-    QFileDialog, QTreeWidgetItem
+    QFileDialog, QTreeWidgetItem, QErrorMessage, QMessageBox
 from PyQt5.QtWidgets import QMenu, QToolBar
 import ResultsParser
 
@@ -25,8 +26,11 @@ class Window(QMainWindow):
 
         self.tree = QTreeWidget()
         self.tree.setAlternatingRowColors(True)
-        self.tree.setColumnCount(3)
-        self.tree.setHeaderLabels(['#', 'TC', 'Status'])
+        columns_count = 4
+        self.tree.setColumnCount(columns_count)
+        self.tree.setHeaderLabels(["#", "TC", "Status", "path"])
+        self.tree.hideColumn(columns_count-1)
+        self.tree.setSelectionMode(3)  # enum come from https://doc.qt.io/qt-5/qabstractitemview.html#SelectionMode-enum
         # self.tree.show()
 
         self.setCentralWidget(self.tree)
@@ -80,6 +84,13 @@ class Window(QMainWindow):
         self.path_label.setText(folder_path)
 
     def refresh(self):
+        if not os.path.isdir(self.path_label.text()):
+            error_dialog = QMessageBox(self)
+            error_dialog.setIcon(QMessageBox.Warning)
+            error_dialog.setWindowTitle(f"Wrong directory")
+            error_dialog.setText(f"selected directory {self.path_label.text()} does not exist")
+            error_dialog.show()
+            return
         parser = ResultsParser.TestResultParser(folder_path=self.path_label.text(), recursive=self.recursive_check_box.isChecked())
         diz, _ = parser.get_dictionary()
         self._populate_tree(diz)
@@ -92,7 +103,8 @@ class Window(QMainWindow):
             QTreeWidgetItem(self.tree, [
                                         str(idx),
                                         str(results_dict[idx]["GENERIC"]["test case number"]),
-                                        str(results_dict[idx]["GENERIC"]["result"])
+                                        str(results_dict[idx]["GENERIC"]["result"]),
+                                        str(results_dict[idx]["GENERIC"]["path"]),
                                         ]
                             )
 
