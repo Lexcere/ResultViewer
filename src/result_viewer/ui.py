@@ -84,6 +84,7 @@ class Window(QMainWindow):
     def open_folder(self):
         folder_path = str(QFileDialog.getExistingDirectory(self, "Select Directory"))
         self.path_label.setText(folder_path)
+        self.refresh()
 
     def refresh(self):
         if not os.path.isdir(self.path_label.text()):
@@ -101,6 +102,7 @@ class Window(QMainWindow):
         print("generate report")
 
     def _populate_tree(self, results_dict):
+        self.tree.clear()
         for idx in results_dict:
             QTreeWidgetItem(self.tree, [
                                         str(idx),
