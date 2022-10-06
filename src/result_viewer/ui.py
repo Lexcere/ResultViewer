@@ -36,6 +36,8 @@ class Window(QMainWindow):
 
         self.setStatusBar(self.status_bar)
 
+        self.working_directory = "my/choosen/path"
+
     def _create_actions(self):
         self.open_action = QAction("Open button", self)
         self.open_action.setStatusTip("this is my button")
@@ -67,7 +69,6 @@ class Window(QMainWindow):
         self.fontSizeSpinBox.setMaximum(100000000)
         self.fontSizeSpinBox.setValue(10000)
         self.fontSizeSpinBox.setFocusPolicy(Qt.NoFocus)
-        self.path_label = QLabel("my/choosen/path")
         self.generate_button = QPushButton("Generate report")
         self.generate_button.setToolTip("Generate html report from current directory")
 
@@ -80,24 +81,23 @@ class Window(QMainWindow):
         main_tool_bar.addWidget(self.recursive_label)
         main_tool_bar.addWidget(self.recursive_check_box)
         main_tool_bar.addWidget(self.fontSizeSpinBox)
-        main_tool_bar.addWidget(self.path_label)
         main_tool_bar.addWidget(self.generate_button)
 
     def open_folder(self):
         folder_path = str(QFileDialog.getExistingDirectory(self, "Select Directory"))
-        self.path_label.setText(folder_path)
         self.setWindowTitle(folder_path)
+        self.working_directory = folder_path
         self.refresh()
 
     def refresh(self):
-        if not os.path.isdir(self.path_label.text()):
+        if not os.path.isdir(self.working_directory):
             error_dialog = QMessageBox(self)
             error_dialog.setIcon(QMessageBox.Warning)
             error_dialog.setWindowTitle("Wrong directory")
-            error_dialog.setText(f"selected directory {self.path_label.text()} does not exist")
+            error_dialog.setText(f"selected directory {self.working_directory} does not exist")
             error_dialog.show()
             return
-        parser = ResultsParser.TestResultParser(folder_path=self.path_label.text(), recursive=self.recursive_check_box.isChecked())
+        parser = ResultsParser.TestResultParser(folder_path=self.working_directory, recursive=self.recursive_check_box.isChecked())
         diz, _ = parser.get_dictionary()
         self._populate_tree(diz)
 
