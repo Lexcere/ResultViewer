@@ -1,6 +1,7 @@
 [flake8]
 max-line-length = 160
-exclude = .idea,
+exclude = .git
+          .idea,
           venv
           build
 count=True
