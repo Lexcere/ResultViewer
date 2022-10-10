@@ -2,8 +2,26 @@
 Usage
 =====
 
+CLI
+===
+
+results <commands> [options]
+
+commands:
+
+- show, s         show statistic about results
+- viewer, v       open GUI
+- report , r      generate report
+
+options:
+
+-
+
+GUI
+===
+
 Read
-====
+----
 
 Read TestResult from the Reading folder is possible via the following menu/icon:
 
@@ -29,7 +47,7 @@ Menu File/Reset folder
   :alt: Alternative text
 
 View
-====
+----
 
 To view the TXT or HTML version of TestResult/s selected. Right click on the list of result, click the
 preferred option from the context menu.
@@ -45,7 +63,7 @@ From the context menu is also possible to:
 - Delete selected TestResult.
 
 Filtering
-=========
+---------
 
 Is possible to filter the visualized result using the toolbar filter widget.
 Select the column you want to filter, type the string to filter and click [ENTER] to refresh the list.
@@ -60,7 +78,7 @@ Is possible to check/uncheck the case sensitive via menu **Filter/Case sensitive
 From the Filter menu is possible to set quick filters.
 
 Save
-====
+----
 
 To save the selected TestResult to the Saving folder use the following command:
 
@@ -73,10 +91,10 @@ Context menu: Save
 If TestResult is linked with one or more MDF file/s, the MDF/s is/are saved as well in the saving folder.
 
 Report
-======
+------
 
 Read Test Result
-----------------
+~~~~~~~~~~~~~~~~
 
 The report is generated using the test result displayed on the ResultViewer list.
 
@@ -88,79 +106,15 @@ The report is generated using the test result displayed on the ResultViewer list
 - Correct all problems
 - Commit SVN Folder after modifications
 
-Create Excel/PDF
-----------------
-
-Summary file
-~~~~~~~~~~~~
-
-Open the template of Test Report Summary
-
-.. image:: images/OpenTestReport.png
-  :alt: Alternative text
-
-Fill the page with correct information
-Save the document to your PC. Change file name to match your Validation
-Example : LMB AC 48 XXXX TestSummaryReport 24.13.10 236901 BETA PEGASUS D956.xlsx
-
-Generate result
-~~~~~~~~~~~~~~~
-
-Start the generation process via menu Report/Generate (Excel).
-
-.. NOTE::
-    Overview, Traceability, Incident checkboxes from Report menu must be activated.
-
-Open the Summary excel file previously created.
-Move the recently created sheets (Result, Traceability, Incident) inside the Validation Report at the end of it.
-
-Define ”Print Area”
-
-- Select column A to I
-- Go in Page Layout Menu and Select Print Area
-- Click Set Print Area
-
-Define ”Page Break Preview” to print on one page
-
-- Go in View Menu and Select Page Break Preview
-- Slide dotted line to the end of clolumn I
-
-If all test are green, Approve the report, else don’t approve it.
-
-Fill in the AC22 Comment part by highlighting each topic on which deviations are observed and by re-
-ferring the ”Result” Sheet.
-
-Review
-~~~~~~
-
-Send report by mail for review and to fill dedicated field to Malnoy + Lescot + Rimkus + CSM (if exist)
-
-Wait
-~~~~
-
-Wait for request to start workflow (from AC1 or CSM)
-
-Save as PDF
-~~~~~~~~~~~
-
-Open the Test report.
-Correct page setup
-
-- Pages ResultAssessment: choose function file/print/Fit All columns on One Page
-
-Export document as PDF
-
-- ALL THE PAGES OF THE EXCEL REPORT MUST BE IN THE PDF
-
 Create HTML
------------
+~~~~~~~~~~~
 
 Display the Test Result of which you want to generate the report.
 Start the generation process via menu Report/Generate (HTML). Report is generated in same folder
 choose to display the Test Result.
 
 Add on
-~~~~~~
+""""""
 
 Add on files can be used to add content to the final report without worrying about style.
 
