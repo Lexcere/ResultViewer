@@ -29,13 +29,19 @@ Documentation
 Distribute
 ==========
 
-for ubuntu
+.. tab:: Ubuntu
 
-.. code-block:: bash
+   .. code-block:: bash
 
     pip install "build[virtualenv]"
     python -m build
     python -m twine upload dist/*
+
+.. tab:: Windows
+
+   TBD
+
+
 
 
 

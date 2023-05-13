@@ -7,3 +7,4 @@ pytest-html
 # doc
 sphinx
 furo
+sphinx-inline-tabs
